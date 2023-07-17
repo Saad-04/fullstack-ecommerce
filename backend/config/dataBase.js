@@ -2,12 +2,9 @@ const mongoose  = require('mongoose')
 
 const database = async()=>{
 try {
-    const res = await mongoose.connect()
+    const res = await mongoose.connect('mongodb://127.0.0.1:27017/ecommerce')
     if(res){
-    console.log('database connected')
-    }
-    else if(!res){
-        console.log('database not connected ')
+    console.log(`database connected: to ${res.connection.host}`)
     }
 } catch (error) {
     console.log(error)
