@@ -28,11 +28,17 @@ const length = await Product.length
 exports.getProductDetail= async (req, res, next) => {
     const product = await Product.find({_id:req?.params?.id})
   console.log(product)
-    
+    if(product){
     res.status(200).json({
       success: true,
       product,
+    })}
+   else if(!product){
+    res.status(404).json({
+      success: false,
+      message:"product not found",
     })
+   }
     // if (product._id !== req.params.id ) {
     //   return next(new ErrorHandler("Product not found", 404));
     // }
