@@ -4,10 +4,8 @@ const {getAllProduct, createProduct, updateProduct, deleteProduct, getProductDet
 const router = express.Router()
 
 router.route('/products').get(getAllProduct)
-router.route('/product/single/:id').get(getProductDetail)
 router.route('/product/new').post(createProduct)
-router.route('/product/update/:id').put(updateProduct)
-router.route('/product/delete/:id').delete(deleteProduct)
+router.route('/product/:id').get(getProductDetail).put(updateProduct).delete(deleteProduct)
 
 
 module.exports =router

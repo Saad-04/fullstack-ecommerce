@@ -5,6 +5,9 @@ module.exports = (err, req, res, next) => {
   err.message = err.message || "Internal Server Error";
   res.status(err.statusCode).json({
     success: false,
-    message: err.message,
+    message: {
+      error: err.message,
+      "not exact but possible":{0:"wronge product id ", 1:"product id missing "}
+    },
   });
 };
