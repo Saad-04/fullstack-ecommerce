@@ -52,7 +52,7 @@ exports.createProduct = asyncError(async (req, res) => {
 
 // get all products 
 exports.getAllProduct = async (req, res, next) => {
-    
+
     try {
         const apiFeature = new ApiFeatures(Product.find(), req.query).search()
         const product = await apiFeature.query
@@ -65,7 +65,7 @@ exports.getAllProduct = async (req, res, next) => {
             })
         }
     } catch (err) {
-        next(new ErrorHandler(err.message, 404))
+        next(new ErrorHandler(err.message, 404))//this next is goes to errorMiddleware function which declare in app.use in app.js
     }
 }
 
