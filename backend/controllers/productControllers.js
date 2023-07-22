@@ -52,10 +52,12 @@ exports.createProduct = async (req, res, next) => {
 exports.getAllProduct = async (req, res, next) => {
   try {
     //apiFeature is =  this keryword
-    let resultPerPage = 3
+    let resultPerPage = 3;
+    const productCount =await Product.countDocuments()
     const apiFeature = new ApiFeatures(Product.find(), req.query)
       .search()
-      .filters().pagination(resultPerPage)
+      .filters()
+      .pagination(resultPerPage);
     console.log(await apiFeature.query);
     const product = await apiFeature.query;
     const length = await Product.length;
@@ -64,6 +66,7 @@ exports.getAllProduct = async (req, res, next) => {
         length,
         success: true,
         product,
+        productCount
       });
     }
   } catch (err) {
