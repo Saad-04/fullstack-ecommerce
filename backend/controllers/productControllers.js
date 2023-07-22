@@ -1,21 +1,19 @@
-const Product = require('../models/productModel.js')
-const ErrorHandler = require('../utils/errorHandler.js')
-const asyncError = require('../middleware/asyncErrorHanler.js')
-const ApiFeatures = require('../utils/apiFeatures.js')
+const Product = require("../models/productModel.js");
+const ErrorHandler = require("../utils/errorHandler.js");
+const ApiFeatures = require("../utils/apiFeatures.js");
 
-
-
-// create product api Admin 
-exports.createProduct = asyncError(async (req, res) => {
-
-    const product = await Product.create(req.body)
+// create product api Admin
+exports.createProduct = async (req, res, next) => {
+  try {
+    const product = await Product.create(req.body);
     res.status(201).json({
-        success: true,
-        product
+      success: true,
+      product,
     });
-});
-
-
+  } catch (error) {
+    next(new ErrorHandler(error.message, 404));
+  }
+};
 
 // exports.getProductDetail= async (req, res, next) => {
 //     const product = await Product.find({_id:req?.params?.id})
@@ -37,7 +35,7 @@ exports.createProduct = asyncError(async (req, res) => {
 
 //   }
 
-// updagte products 
+// updagte products
 // exports.updateProduct = async (req, res,next) => {
 
 //     const id =req.params.id
@@ -50,74 +48,73 @@ exports.createProduct = asyncError(async (req, res) => {
 //     })
 // }
 
-// get all products 
+// get all products
 exports.getAllProduct = async (req, res, next) => {
-
-    try {
-        const apiFeature = new ApiFeatures(Product.find(), req.query).search()
-        const product = await apiFeature.query
-        const length = await Product.length
-        if (product) {
-            res.status(200).json({
-                length,
-                success: true,
-                product
-            })
-        }
-    } catch (err) {
-        next(new ErrorHandler(err.message, 404))//this next is goes to errorMiddleware function which declare in app.use in app.js
+  try {
+    //apiFeature is =  this keryword
+    let resultPerPage = 3
+    const apiFeature = new ApiFeatures(Product.find(), req.query)
+      .search()
+      .filters().pagination(resultPerPage)
+    console.log(await apiFeature.query);
+    const product = await apiFeature.query;
+    const length = await Product.length;
+    if (product) {
+      res.status(200).json({
+        length,
+        success: true,
+        product,
+      });
     }
-}
+  } catch (err) {
+    next(new ErrorHandler(err.message, 404)); //this next is goes to errorMiddleware function which declare in app.use in app.js
+  }
+};
 
 exports.getProductDetail = async (req, res, next) => {
-    try {
-
-        const product = await Product.findById(req?.params?.id)
-        if (product) {
-            res.status(200).json({
-                success: true,
-                product
-            })
-        }
-    } catch (error) {
-        next(new ErrorHandler(error.message, 404))
+  try {
+    const product = await Product.findById(req?.params?.id);
+    if (product) {
+      res.status(200).json({
+        success: true,
+        product,
+      });
     }
-}
+  } catch (error) {
+    next(new ErrorHandler(error.message, 404));
+  }
+};
 
-// updagte products 
+// updagte products
 exports.updateProduct = async (req, res, next) => {
-
-    try {
-        const id = req?.params?.id
-        const updated = await Product?.findByIdAndUpdate(id, req.body)
-        const product = await Product?.findById(id)
-        if (product) {
-            res.status(200).json({
-                success: true,
-                product
-            })
-        }
-    } catch (e) {
-        next(new ErrorHandler(e.message, 404))
+  try {
+    const id = req?.params?.id;
+    const updated = await Product?.findByIdAndUpdate(id, req.body);
+    const product = await Product?.findById(id);
+    if (product) {
+      res.status(200).json({
+        success: true,
+        product,
+      });
     }
+  } catch (e) {
+    next(new ErrorHandler(e.message, 404));
+  }
+};
 
-}
-
-// updagte products 
+// updagte products
 exports.deleteProduct = async (req, res, next) => {
-    try {
-        const id = req?.params?.id
-        const product = await Product?.findById(id)
-        const updated = await Product?.findByIdAndDelete(id)
-        if (product) {
-            res.status(200).json({
-                success: true,
-                product
-            })
-        }
-    } catch (e) {
-        next(new ErrorHandler(e.message, 404))
+  try {
+    const id = req?.params?.id;
+    const product = await Product?.findById(id);
+    const updated = await Product?.findByIdAndDelete(id);
+    if (product) {
+      res.status(200).json({
+        success: true,
+        product,
+      });
     }
-
-}
-
+  } catch (e) {
+    next(new ErrorHandler(e.message, 404));
+  }
+};
