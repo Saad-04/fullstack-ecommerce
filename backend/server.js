@@ -4,11 +4,11 @@ const database = require('./config/dataBase')
 
 
 // handled uncaughed promise rejections 
-process.on("uncaughtException",(err)=>{
-    console.log(`Error: ${err.message}`)
-    console.log(`shutting down the server due to uncaught exception`)
-    process.exit(1)
-})
+// process.on("uncaughtException",(err)=>{
+//     console.log(`Error: ${err.message}`)
+//     console.log(`shutting down the server due to uncaught exception`)
+//     process.exit(1)
+// })
 
 // config 
 config({ path: 'backend/config/config.env' })
@@ -22,10 +22,10 @@ const server = app.listen(process.env.PORT, () => {
 
 
 // unhandled promise rejection 
-process.on('unhandledRejection', (error) => {
-    console.log(`Error: ${error.message}`)
-    console.log(`shutting down the server duo to unhandled promise rejection`)
-    server.close(()=>{
-        process.exit(1)
-    })
-})
+// process.on('unhandledRejection', (error) => {
+//     console.log(`Error: ${error.message}`)
+//     console.log(`shutting down the server duo to unhandled promise rejection`)
+//     server.close(()=>{
+//         process.exit(1)
+//     })
+// })

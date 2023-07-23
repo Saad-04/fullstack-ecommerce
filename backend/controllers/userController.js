@@ -1,11 +1,10 @@
+const jsonTokenAndResponse = require('../utils/jsonTokenAndResponse.js')
 const User = require("../models/userModel.js");
 const ErrorHandler = require("../utils/errorHandler.js");
-const ApiFeatures = require("../utils/apiFeatures.js");
-
 exports.registerUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
-    const user =await User.create({
+    const user = await User.create({
       name,
       email,
       password,
@@ -14,10 +13,39 @@ exports.registerUser = async (req, res, next) => {
         url: "this is url ",
       },
     });
-    res.status(201).json({
-        success:true,
-        user
-    })
+    // this is cookie token and response 
+    jsonTokenAndResponse(user,200,res)
+
+  } catch (error) {
+    next(new ErrorHandler(error.message, 404));
+  }
+};
+
+exports.loginUser = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    // if email and password empty
+    if ((!email, !password)) {
+      return next(new ErrorHandler("enter email and password ", 400));
+    }
+
+    const user = await User.findOne({ email }).select("+password");
+    // if email and password not match
+    if (!user) {
+      return next(
+        new ErrorHandler("invalid user wrong email and password", 401)
+      );
+    }
+    // if email and password is matched
+    const isMatch = await user.comparePassword(password);
+    // if email and password is matched
+    if (!isMatch) {
+      return next(new ErrorHandler(" wrong password", 401));
+    }
+     // this is cookie token and response 
+     jsonTokenAndResponse(user,200,res)
+
   } catch (error) {
     next(new ErrorHandler(error.message, 404));
   }
