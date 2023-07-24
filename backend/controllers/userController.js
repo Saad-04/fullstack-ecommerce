@@ -1,6 +1,7 @@
 const jsonTokenAndResponse = require("../utils/jsonTokenAndResponse.js");
 const User = require("../models/userModel.js");
 const ErrorHandler = require("../utils/errorHandler.js");
+const sendEmail = require("../utils/sendEmail.js");
 
 exports.registerUser = async (req, res, next) => {
   try {
@@ -23,16 +24,16 @@ exports.registerUser = async (req, res, next) => {
 
 exports.logoutUser = async (req, res, next) => {
   try {
-    res.cookie('token',null,{
-      httpOnly:true,
-     expires:new Date(Date.now())
-    })
+    res.cookie("token", null, {
+      httpOnly: true,
+      expires: new Date(Date.now()),
+    });
     res.send({
-      success:true,
-      message:"successfull logout"
-    })
+      success: true,
+      message: "successfull logout",
+    });
   } catch (error) {
-     next(new ErrorHandler(error.message,401))
+    next(new ErrorHandler(error.message, 401));
   }
 };
 
@@ -65,3 +66,38 @@ exports.loginUser = async (req, res, next) => {
   }
 };
 
+// forgot user password
+exports.forgotPassword = async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    return next(new ErrorHandler("user not found", 404));
+  }
+  // get resetpaswword token
+  const resetPasswordToken = user.getResetPasswordToken();
+  await user.save({ validateBeforeSave: false });
+  // this is reset password url
+  const resetPasswordUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/api/v1/password/reset/${resetPasswordToken}`;
+
+  const message = `your password reset url is :-\n\n${resetPasswordUrl} \n\n if your don't want to change the password then ignore it !`;
+  // main function start here
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: "ecommerce password recovery email",
+      message,
+    });
+    res.status(200).json({
+      success: true,
+      message: `email send to ${user.email} successfully`,
+    });
+  } catch (error) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save({ validateBeforeSave: false });
+
+    next(new ErrorHandler(error.message, 404));
+  }
+};

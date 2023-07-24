@@ -5,6 +5,8 @@ const ApiFeatures = require("../utils/apiFeatures.js");
 // create product api Admin
 exports.createProduct = async (req, res, next) => {
   try {
+    req.body.user = req.user.id; //here we save product create user id in body user property
+
     const product = await Product.create(req.body);
     res.status(201).json({
       success: true,
@@ -53,12 +55,12 @@ exports.getAllProduct = async (req, res, next) => {
   try {
     //apiFeature is =  this keryword
     let resultPerPage = 3;
-    const productCount =await Product.countDocuments()
+    const productCount = await Product.countDocuments();
     const apiFeature = new ApiFeatures(Product.find(), req.query)
       .search()
       .filters()
       .pagination(resultPerPage);
-    console.log(await apiFeature.query);
+    ;
     const product = await apiFeature.query;
     const length = await Product.length;
     if (product) {
@@ -66,7 +68,7 @@ exports.getAllProduct = async (req, res, next) => {
         length,
         success: true,
         product,
-        productCount
+        productCount,
       });
     }
   } catch (err) {

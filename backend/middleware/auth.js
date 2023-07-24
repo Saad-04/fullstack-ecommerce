@@ -11,7 +11,7 @@ exports.isAuthenticated = async (req, res, next) => {
     }
     const verify = jwt.verify(token, process.env.JWT_SECRET);
     req.user = await User.findById(verify.id); //here we set userProfile in req.user property
-    console.log(req.user);
+    
     next();
   } catch (err) {
     return next(new ErrorHandler(err.message, 401));
