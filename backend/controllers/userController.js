@@ -99,5 +99,5 @@ exports.forgotPassword = async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     next(new ErrorHandler(error.message, 404));
-  }
+  };
 };
