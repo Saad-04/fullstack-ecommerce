@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const crypt = require("crypto-js");
 const crypto = require("crypto");
 const userSchema = new mongoose.Schema({
   name: {
@@ -14,7 +13,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "Please Enter Your Email"],
-    unique: true,
+    unique: [true, "this email already exist"],
     validate: [validator.isEmail, "Please Enter a valid Email"],
   },
   password: {
@@ -66,8 +65,10 @@ userSchema.methods.comparePassword = async function (comparePass) {
 
 // generate password reset token
 userSchema.methods.getResetPasswordToken = function () {
-  const resetToken = crypto.randomBytes(20).toString("hex");
-  this.resetPasswordToken = crypto
+  //this function return normal password token
+  const resetToken = crypto.randomBytes(20).toString("hex"); //this is normal password token
+  // console.log(resetToken)
+  this.resetPasswordToken = crypto //this is hashed password token and this is saved in user model
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");

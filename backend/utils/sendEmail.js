@@ -1,20 +1,27 @@
+const { trusted } = require("mongoose");
 const nodeMailer = require("nodemailer");
 
 const sendEmail = async (options) => {
-  const transporer = nodeMailer.createTransport({
-    service: process.env.SMPT_SERVICE,
+  const transporter = nodeMailer.createTransport({
+    // host: "smtp.forwardemail.net",
+    service:'gmail',
+    port: 465,
+   
     auth: {
-      user: process.env.SMPT_MAIL,
-      pass: process.env.SMPT_PASSWORD,
-    },
+      user: 'asaad4674@gmail.com',
+      pass: 'hkxykdsmbvtqvhnr',
+    }
+   ,secure:trusted,
+
+    
   });
 
   const option = {
-    from: process.env.SMPT_MAIL,
+    from: '<asaad4674@gmail.com>',
     to: options.email,
     subject: options.subject,
     text: options.message,
   };
-  await transporer.sendMail(option);
+  await transporter.sendMail(option);
 };
 module.exports = sendEmail;
