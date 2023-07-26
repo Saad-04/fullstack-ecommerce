@@ -1,6 +1,7 @@
 const Product = require("../models/productModel.js");
 const ErrorHandler = require("../utils/errorHandler.js");
 const ApiFeatures = require("../utils/apiFeatures.js");
+const response = require("../utils/response.js");
 
 // create product api Admin
 exports.createProduct = async (req, res, next) => {
@@ -8,10 +9,8 @@ exports.createProduct = async (req, res, next) => {
     req.body.user = req.user.id; //here we save product create user id in body user property
 
     const product = await Product.create(req.body);
-    res.status(201).json({
-      success: true,
-      product,
-    });
+    response(res, 201, true, product, 'product created successfully ');
+
   } catch (error) {
     next(new ErrorHandler(error.message, 404));
   }
@@ -60,16 +59,10 @@ exports.getAllProduct = async (req, res, next) => {
       .search()
       .filters()
       .pagination(resultPerPage);
-    ;
     const product = await apiFeature.query;
-    const length = await Product.length;
+
     if (product) {
-      res.status(200).json({
-        length,
-        success: true,
-        product,
-        productCount,
-      });
+      response(res, 200, true, product, productCount);
     }
   } catch (err) {
     next(new ErrorHandler(err.message, 404)); //this next is goes to errorMiddleware function which declare in app.use in app.js
@@ -80,10 +73,7 @@ exports.getProductDetail = async (req, res, next) => {
   try {
     const product = await Product.findById(req?.params?.id);
     if (product) {
-      res.status(200).json({
-        success: true,
-        product,
-      });
+      response(res, 200, true, product, null);
     }
   } catch (error) {
     next(new ErrorHandler(error.message, 404));
@@ -97,10 +87,7 @@ exports.updateProduct = async (req, res, next) => {
     const updated = await Product?.findByIdAndUpdate(id, req.body);
     const product = await Product?.findById(id);
     if (product) {
-      res.status(200).json({
-        success: true,
-        product,
-      });
+      response(res, 200, true, product, 'update successfully ');
     }
   } catch (e) {
     next(new ErrorHandler(e.message, 404));
@@ -114,10 +101,7 @@ exports.deleteProduct = async (req, res, next) => {
     const product = await Product?.findById(id);
     const updated = await Product?.findByIdAndDelete(id);
     if (product) {
-      res.status(200).json({
-        success: true,
-        product,
-      });
+      response(res, 200, true, product, null);
     }
   } catch (e) {
     next(new ErrorHandler(e.message, 404));

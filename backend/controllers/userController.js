@@ -3,6 +3,7 @@ const User = require("../models/userModel.js");
 const ErrorHandler = require("../utils/errorHandler.js");
 const sendEmail = require("../utils/sendEmail.js");
 const crypto = require("crypto");
+const response = require("../utils/response.js");
 
 exports.registerUser = async (req, res, next) => {
   try {
@@ -91,17 +92,19 @@ exports.forgotPassword = async (req, res, next) => {
       subject: "ecommerce password recovery email",
       message,
     });
-    res.status(200).json({
-      success: true,
-      message: `email send to ${user.email} successfully`,
-    });
+
+    response(res, 200, true, null, `email send to ${user.email} successfully`);
+    // res.status(200).json({
+    //   success: true,
+    //   message: `email send to ${user.email} successfully`,
+    // });
   } catch (error) {
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
     await user.save({ validateBeforeSave: false });
 
     next(new ErrorHandler(error.message, 404));
-  };
+  }
 };
 
 // forgot user password
@@ -127,12 +130,81 @@ exports.resetPassword = async (req, res, next) => {
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
     await user.save();
-
-    res.status(200).json({
-      success: true,
-      user,
-    });
+    jsonTokenAndResponse(user, 401, res);
+    response(res, 200, true, null, "password reset successfully ");
   } catch (error) {
     next(new ErrorHandler(error.message, 404));
+  }
+};
+
+// get user profile detail
+exports.getUserDetail = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    response(res, 200, true, user);
+  } catch (error) {
+    next(new ErrorHandler(error.message, 404));
+  }
+};
+
+// get user profile password detail
+exports.updatePassword = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id).select("+password");
+
+    const isMatched = await user.comparePassword(req.body.oldPassword);
+
+    if (!isMatched) {
+      return next(new ErrorHandler("wrong password ! ", 401));
+    }
+
+    if (req.body.confirmPassword === req.body.oldPassword) {
+      next(
+        new ErrorHandler(
+          "this password is already exist try another password !",
+          400
+        )
+      );
+    }
+
+    if (req.body.confirmPassword !== req.body.newPassword) {
+      next(
+        new ErrorHandler(
+          "new password is not matched with confirm password !",
+          401
+        )
+      );
+    }
+
+    user.password = req.body.confirmPassword;
+    await user.save();
+    jsonTokenAndResponse(user, 201, res);
+
+    response(res, 200, true, null, "password update successfully 👍");
+  } catch (error) {
+    next(new ErrorHandler(error.message, 401));
+  }
+};
+
+// get user profile name and email  detail
+exports.updateProfile = async (req, res, next) => {
+  try {
+    const options = {
+      name: req.body.name,
+      email: req.body.email,
+    };
+    // update avater later
+
+    if ( req.body.name || req.body.email) {
+      await User.findByIdAndUpdate(req.user.id, options);
+      const newUser = await User.findById(req.user.id);
+      jsonTokenAndResponse(newUser, 201, res);
+    }
+    else{
+      response(res, 401, false, null, "lease enter email or password !")
+    };
+  } catch (error) {
+    next(new ErrorHandler(error.message, 401));
   }
 };
