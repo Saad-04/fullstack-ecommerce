@@ -9,8 +9,7 @@ exports.createProduct = async (req, res, next) => {
     req.body.user = req.user.id; //here we save product create user id in body user property
 
     const product = await Product.create(req.body);
-    response(res, 201, true, product, 'product created successfully ');
-
+    response(res, 201, true, product, "product created successfully ");
   } catch (error) {
     next(new ErrorHandler(error.message, 404));
   }
@@ -87,7 +86,7 @@ exports.updateProduct = async (req, res, next) => {
     const updated = await Product?.findByIdAndUpdate(id, req.body);
     const product = await Product?.findById(id);
     if (product) {
-      response(res, 200, true, product, 'update successfully ');
+      response(res, 200, true, product, "update successfully ");
     }
   } catch (e) {
     next(new ErrorHandler(e.message, 404));
@@ -103,6 +102,56 @@ exports.deleteProduct = async (req, res, next) => {
     if (product) {
       response(res, 200, true, product, null);
     }
+  } catch (e) {
+    next(new ErrorHandler(e.message, 404));
+  }
+};
+
+// create and update reviews from a product
+exports.createAndUpdateReview = async (req, res, next) => {
+  try {
+    const { productId, comment, rating } = req.body;
+    console.log(typeof rating);
+    const review = {
+      user: req.user._id,
+      name: req.user.name,
+      comment,
+      rating,
+    };
+    const product = await Product.findById(productId); //this product id come when user click on
+    //a single product item
+
+    const isAlreadyReview = product.reviews.find(
+      //this isAlreadyReview returh only true or false !
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+    // if user already give a review
+    if (isAlreadyReview) {
+      //herer we apply foreach on reviews array
+      product.reviews.forEach((e) => {
+        //check here array each object user.id is matched to user._id
+        if (e.user.toString() === req.user._id.toString()) {
+          e.comment = comment;
+          e.rating = rating;
+        }
+      });
+    }
+    // if a user never give a review to the product
+    if (!isAlreadyReview) {
+      product.reviews.push(review);
+      product.numOfReview = product.reviews.length;
+    }
+
+    // here we calculate to average of all reviews if we combine it
+    let average = 0;
+    product.reviews.forEach((e) => {
+      return (average += e.rating); //here we sum all objects rating in average
+    });
+
+    product.ratings = Number(average / product.reviews.length); //here we divide all ratings number to total number of user rating
+
+    await product.save();
+    response(res, 200, true, product, "done");
   } catch (e) {
     next(new ErrorHandler(e.message, 404));
   }
