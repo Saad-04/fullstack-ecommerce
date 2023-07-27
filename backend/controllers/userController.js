@@ -196,14 +196,78 @@ exports.updateProfile = async (req, res, next) => {
     };
     // update avater later
 
-    if ( req.body.name || req.body.email) {
+    if (req.body.name || req.body.email) {
       await User.findByIdAndUpdate(req.user.id, options);
       const newUser = await User.findById(req.user.id);
       jsonTokenAndResponse(newUser, 201, res);
+    } else {
+      response(res, 401, false, null, "lease enter email or password !");
     }
-    else{
-      response(res, 401, false, null, "lease enter email or password !")
+  } catch (error) {
+    next(new ErrorHandler(error.message, 401));
+  }
+};
+// get user profile name and email  detail
+exports.updateUserAdmin = async (req, res, next) => {
+  try {
+    const options = {
+      name: req.body.name,
+      email: req.body.email,
+      role: req.body.role
     };
+    // update avater later
+
+    if (req.body.name || req.body.email) {
+      await User.findByIdAndUpdate(req.user.id, options);
+      const newUser = await User.findById(req.user.id);
+      jsonTokenAndResponse(newUser, 201, res);
+    } else {
+      response(res, 401, false, null, "lease enter email or password !");
+    }
+  } catch (error) {
+    next(new ErrorHandler(error.message, 401));
+  }
+};
+
+// get all users only admin can access this
+exports.getAllUsers = async (req, res, next) => {
+  try {
+    const users = await User.find();
+    if (!users) {
+      next(new ErrorHandler("users not found "), 401);
+    }
+    if (users) {
+      return response(res, 200, true, users, null);
+    }
+  } catch (error) {
+    next(new ErrorHandler(error.message, 401));
+  }
+};
+
+// get single user detail only admin can access this
+exports.getSingleUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      next(new ErrorHandler("users not found "), 401);
+    }
+    if (user) {
+      return response(res, 200, true, user, "here is user 😊");
+    }
+  } catch (error) {
+    next(new ErrorHandler(error.message, 401));
+  }
+};
+exports.deleteUser = async (req, res, next) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+      next(new ErrorHandler("users not found "), 401);
+    }
+    if (user) {
+       response(res, 200, true, user, "this user deleted😊");
+       user.remove()
+    }
   } catch (error) {
     next(new ErrorHandler(error.message, 401));
   }
