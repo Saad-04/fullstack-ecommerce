@@ -15,26 +15,6 @@ exports.createProduct = async (req, res, next) => {
   }
 };
 
-// exports.getProductDetail= async (req, res, next) => {
-//     const product = await Product.find({_id:req?.params?.id})
-//   console.log(product)
-//     if(product){
-//     res.status(200).json({
-//       success: true,
-//       product,
-//     })}
-//    else if(!product){
-//     res.status(404).json({
-//       success: false,
-//       message:"product not found",
-//     })
-//    }
-// if (product._id !== req.params.id ) {
-//   return next(new ErrorHandler("Product not found", 404));
-// }
-
-//   }
-
 // updagte products
 // exports.updateProduct = async (req, res,next) => {
 
@@ -111,7 +91,7 @@ exports.deleteProduct = async (req, res, next) => {
 exports.createAndUpdateReview = async (req, res, next) => {
   try {
     const { productId, comment, rating } = req.body;
-    console.log(typeof rating);
+
     const review = {
       user: req.user._id,
       name: req.user.name,
@@ -152,6 +132,59 @@ exports.createAndUpdateReview = async (req, res, next) => {
 
     await product.save();
     response(res, 200, true, product, "done");
+  } catch (e) {
+    next(new ErrorHandler(e.message, 404));
+  }
+};
+
+// get all review aon admin access this
+exports.getProductAllReviews = async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.query.id);
+    const allReview = product.reviews;
+    if (!req.query.id) {
+      response(res, 200, true, null, "please add query  ");
+    }
+
+    if (allReview) {
+      response(res, 200, true, allReview, "done ");
+    }
+    if (!allReview) {
+      response(res, 200, true, null, " review section is empty ");
+    }
+  } catch (err) {
+    next(new ErrorHandler(err.message, 404)); //this next is goes to errorMiddleware function which declare in app.use in app.js
+  }
+};
+
+//delete the review from a product only admin can do this
+exports.deleteProductReview = async (req, res, next) => {
+  try {
+    let product = await Product.findById(req.query.productId); //this productId come when we click on single product item
+    if (!product) {
+      next(new ErrorHandler("product not found ", 404));
+    }
+    // productId is main product id
+    // is review single object id onClick
+    if (product) {
+      let reviews = product.reviews.filter(
+        (every) => every._id.toString() !== req.query.reviewId.toString() //every._id is every object unique id and reviewId is single object id when we click on delete button then this deleted parent object mean containenr id goes to query
+      );
+      // here we again change ratings, numOfReview and reviews also
+      let average = 0;
+      reviews.forEach((obj) => {
+        return (average += obj.rating);
+      });
+      const ratings = average / reviews.length;
+      const numOfReview = reviews.length;
+
+      product = await Product.findByIdAndUpdate(req.query.productId, {
+        ratings,
+        numOfReview,
+        reviews,
+      });
+      response(res, 200, true, product, "done");
+    }
   } catch (e) {
     next(new ErrorHandler(e.message, 404));
   }

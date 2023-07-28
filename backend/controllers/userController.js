@@ -208,19 +208,20 @@ exports.updateProfile = async (req, res, next) => {
   }
 };
 // get user profile name and email  detail
-exports.updateUserAdmin = async (req, res, next) => {
+exports.updateUserRole = async (req, res, next) => {
   try {
     const options = {
       name: req.body.name,
       email: req.body.email,
-      role: req.body.role
+      role: req.body.role,
     };
     // update avater later
 
     if (req.body.name || req.body.email) {
-      await User.findByIdAndUpdate(req.user.id, options);
-      const newUser = await User.findById(req.user.id);
-      jsonTokenAndResponse(newUser, 201, res);
+      
+      const user = await User.findByIdAndUpdate(req.params.id, options);
+      // const newUser = await User.findById(req.user.id);
+      jsonTokenAndResponse(user, 201, res);
     } else {
       response(res, 401, false, null, "lease enter email or password !");
     }
@@ -265,8 +266,8 @@ exports.deleteUser = async (req, res, next) => {
       next(new ErrorHandler("users not found "), 401);
     }
     if (user) {
-       response(res, 200, true, user, "this user deleted😊");
-       user.remove()
+      response(res, 200, true, user, "this user deleted😊");
+      user.remove();
     }
   } catch (error) {
     next(new ErrorHandler(error.message, 401));
