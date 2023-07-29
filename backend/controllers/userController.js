@@ -18,6 +18,7 @@ exports.registerUser = async (req, res, next) => {
       },
     });
     // this is cookie token and response
+
     jsonTokenAndResponse(user, 200, res);
   } catch (error) {
     next(new ErrorHandler(error.message, 404));
@@ -30,10 +31,7 @@ exports.logoutUser = async (req, res, next) => {
       httpOnly: true,
       expires: new Date(Date.now()),
     });
-    res.send({
-      success: true,
-      message: "successfull logout",
-    });
+    response(res, 200, true, req.user.email, "successfully logged out ");
   } catch (error) {
     next(new ErrorHandler(error.message, 401));
   }
@@ -218,7 +216,6 @@ exports.updateUserRole = async (req, res, next) => {
     // update avater later
 
     if (req.body.name || req.body.email) {
-      
       const user = await User.findByIdAndUpdate(req.params.id, options);
       // const newUser = await User.findById(req.user.id);
       jsonTokenAndResponse(user, 201, res);
