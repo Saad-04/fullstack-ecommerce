@@ -49,16 +49,18 @@ userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
-  this.password = await bcrypt.hash(this.password, 10);
+  this.password = await bcrypt.hash(this.password, 10); //here we save hash password in user model before creating user account
 });
 
 // here we create jwttoken for user
+// jsonToken() this function return token
 userSchema.methods.jsonToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
+    expiresIn: process.env.JWT_EXPIRE, //here user will logout after 5 days
   });
 };
 // compare user password
+// this (comparePass) is = when user enter password on input field
 userSchema.methods.comparePassword = async function (comparePass) {
   return bcrypt.compare(comparePass, this.password);
 };
@@ -68,11 +70,11 @@ userSchema.methods.getResetPasswordToken = function () {
   //this function return normal password token
   const resetToken = crypto.randomBytes(20).toString("hex"); //this is normal password token
   // console.log(resetToken)
-  this.resetPasswordToken = crypto //this is hashed password token and this is saved in user model
+  this.resetPasswordToken = crypto //this is hashed password token and this is saved in user model resetPasswordToken property
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
-  this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+  this.resetPasswordExpire = Date.now() + 15 * 60 * 1000; //here we set expiry date in user model resetPasswordexpire property
   return resetToken;
 };
 

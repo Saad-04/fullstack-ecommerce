@@ -113,7 +113,7 @@ exports.createAndUpdateReview = async (req, res, next) => {
         if (e.user.toString() === req.user._id.toString()) {
           e.comment = comment;
           e.rating = rating;
-        };
+        }
       });
     }
     // if a user never give a review to the product

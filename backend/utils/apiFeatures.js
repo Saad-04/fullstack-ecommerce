@@ -22,8 +22,8 @@ class ApiFeatures {
     // for removing field of category
     console.log(copyQuery);
 
-    // const removeField = ['keyword', 'page', 'limit']
-    // removeField.forEach(e => delete copyQuery[e])
+    const removeField = ['keyword', 'page', 'limit']
+    removeField.forEach(e => delete copyQuery[e])
 
     let queryStr = JSON.stringify(copyQuery);
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (match) => `$${match}`);
@@ -32,6 +32,7 @@ class ApiFeatures {
 
     return this;
   }
+
   pagination(resultPerPage) {
     let pageNumber = Number(this.queryStr.page) || 1;
     let skip = resultPerPage * (pageNumber - 1);

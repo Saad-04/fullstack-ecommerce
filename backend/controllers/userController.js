@@ -1,7 +1,7 @@
 const jsonTokenAndResponse = require("../utils/jsonTokenAndResponse.js");
 const User = require("../models/userModel.js");
 const ErrorHandler = require("../utils/errorHandler.js");
-const sendEmail = require("../utils/sendEmail.js");
+const sendEmailFunction = require("../utils/sendEmail.js");
 const crypto = require("crypto");
 const response = require("../utils/response.js");
 
@@ -85,7 +85,7 @@ exports.forgotPassword = async (req, res, next) => {
   // main function start here
 
   try {
-    await sendEmail({
+    await sendEmailFunction({
       email: user.email,
       subject: "ecommerce password recovery email",
       message,
@@ -135,7 +135,7 @@ exports.resetPassword = async (req, res, next) => {
   }
 };
 
-// get user profile detail
+// get user profile detail user see their own profile
 exports.getUserDetail = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
@@ -264,7 +264,6 @@ exports.deleteUser = async (req, res, next) => {
     }
     if (user) {
       response(res, 200, true, user, "this user deleted😊");
-      user.remove();
     }
   } catch (error) {
     next(new ErrorHandler(error.message, 401));
