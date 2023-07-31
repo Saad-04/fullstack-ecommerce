@@ -23,7 +23,7 @@ exports.isAuthenticated = async (req, res, next) => {
 exports.ownerRoles = (...roles) => {
   return (req, res, next) => {
     try {
-      console.log(req.user.role); //req.user = user profile
+      //console.log(req.user.role); //req.user = user profile
       if (!roles.includes(req.user.role)) {
         next(
           new ErrorHandler("access not allow only Admin can access this ", 403)
