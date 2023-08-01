@@ -1,6 +1,6 @@
-export const ALL_PRODUCT_REQUEST = "ALL_PRODUCT_REQUEST";
-export const ALL_PRODUCT_SUCCESS = "ALL_PRODUCT_SUCCESS";
-export const ALL_PRODUCT_FAIL = "ALL_PRODUCT_FAIL";
+export const allProductRequest = "ALL_PRODUCT_REQUEST";
+export const allProductSuccess = "ALL_PRODUCT_SUCCESS";
+export const allProductFail = "ALL_PRODUCT_FAIL";
 
 export const ADMIN_PRODUCT_REQUEST = "ADMIN_PRODUCT_REQUEST";
 export const ADMIN_PRODUCT_SUCCESS = "ADMIN_PRODUCT_SUCCESS";
@@ -39,4 +39,4 @@ export const DELETE_REVIEW_SUCCESS = "DELETE_REVIEW_SUCCESS";
 export const DELETE_REVIEW_RESET = "DELETE_REVIEW_RESET";
 export const DELETE_REVIEW_FAIL = "DELETE_REVIEW_FAIL";
 
-export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const clearError="clearErrors";

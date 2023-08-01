@@ -3,8 +3,6 @@ import "./home.css";
 import { VscBracketDot } from "react-icons/vsc";
 import ProductCard from "./ProductCard.js";
 import { MetaData } from "../layouts/MetaData.js";
-import getProduct from "../../actions/productAction.js";
-import { useDispatch, useSelector } from "react-redux";
 
 const product = {
   name: "saad",
@@ -18,12 +16,6 @@ const product = {
 };
 
 function Home() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getProduct());
-  }, dispatch);
-
   return (
     <Fragment>
       <MetaData title="saad ali" />

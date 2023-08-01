@@ -1,32 +1,33 @@
+import { createSlice } from "@reduxjs/toolkit";
 import {
-  ALL_PRODUCT_FAIL,
-  ALL_PRODUCT_REQUEST,
-  ALL_PRODUCT_SUCCESS,
-  CLEAR_ERRORS,
+  allProductRequest,
+  allProductSuccess,
+  allProductFail,
+  clearError,
 } from "../constants/constants.js";
 
 export function productReducer(state = { product: [] }, action) {
   switch (action.type) {
-    case ALL_PRODUCT_REQUEST:
+    case allProductRequest:
       return {
         loading: true,
         product: [],
       };
       break;
-    case ALL_PRODUCT_SUCCESS:
+    case allProductSuccess:
       return {
         loading: false,
         productCount: action.payload.productCount,
         product: action.payload.products,
       };
       break;
-    case ALL_PRODUCT_FAIL:
+    case allProductFail:
       return {
         loading: false,
         error: action.payload,
       };
       break;
-    case CLEAR_ERRORS:
+    case clearError:
       return {
         ...state,
         error: null,
@@ -37,3 +38,46 @@ export function productReducer(state = { product: [] }, action) {
       return state;
   }
 }
+ 
+
+// let initialState = {
+//   loading: true,
+//   error: null,
+//   product: [],
+// };
+
+// export const productSlice = createSlice({
+//   name: "product",
+//   initialState,
+//   reducers: {
+//     allProductRequest: (state, action) => {
+//       state.loading = true;
+//       state.product = [];
+//       state.error = null;
+//     },
+
+//     allProductSuccess: (state, action) => {
+//       state.loading = false;
+//       state.product = action.payload.products;
+//       state.productCount = action.payload.productCount;
+//       state.error = null;
+//     },
+
+//     allProductFail: (state, action) => {
+//       state.loading = false;
+//       state.error = action.payload.error;
+//     },
+//     clearError: (state, action) => {
+//       return {
+//         ...state,
+//       };
+//     },
+//   },
+// });
+// export const {
+//   allProductRequest,
+//   allProductSuccess,
+//   allProductFail,
+//   clearError,
+// } = productSlice.actions;
+// export default productSlice.reducer;
