@@ -3,7 +3,9 @@ import "./home.css";
 import { VscBracketDot } from "react-icons/vsc";
 import ProductCard from "./ProductCard.js";
 import { MetaData } from "../layouts/MetaData.js";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getProduct } from "../../reducers/productReducer.js";
+import { fetchData } from "../../reducers/productReducer.js";
 const product = {
   name: "saad",
   images: [
@@ -16,6 +18,11 @@ const product = {
 };
 
 function Home() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
+
   return (
     <Fragment>
       <MetaData title="saad ali" />

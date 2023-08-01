@@ -1,83 +1,42 @@
-import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   allProductRequest,
   allProductSuccess,
   allProductFail,
   clearError,
 } from "../constants/constants.js";
+import { useDispatch, useSelector } from "react-redux";
+const initialState = {
+  productssss: [],
+};
 
-export function productReducer(state = { product: [] }, action) {
-  switch (action.type) {
-    case allProductRequest:
-      return {
-        loading: true,
-        product: [],
-      };
-      break;
-    case allProductSuccess:
-      return {
-        loading: false,
-        productCount: action.payload.productCount,
-        product: action.payload.products,
-      };
-      break;
-    case allProductFail:
-      return {
-        loading: false,
-        error: action.payload,
-      };
-      break;
-    case clearError:
-      return {
-        ...state,
-        error: null,
-      };
-      break;
+export const fetchData = createAsyncThunk("product/getProduct", async () => {
+  try {
+    const { data } = await axios.get("/api/v1/products");
 
-    default:
-      return state;
+    return data;
+  } catch (error) {
+    return error.message;
   }
-}
- 
+});
 
-// let initialState = {
-//   loading: true,
-//   error: null,
-//   product: [],
-// };
-
-// export const productSlice = createSlice({
-//   name: "product",
-//   initialState,
-//   reducers: {
-//     allProductRequest: (state, action) => {
-//       state.loading = true;
-//       state.product = [];
-//       state.error = null;
-//     },
-
-//     allProductSuccess: (state, action) => {
-//       state.loading = false;
-//       state.product = action.payload.products;
-//       state.productCount = action.payload.productCount;
-//       state.error = null;
-//     },
-
-//     allProductFail: (state, action) => {
-//       state.loading = false;
-//       state.error = action.payload.error;
-//     },
-//     clearError: (state, action) => {
-//       return {
-//         ...state,
-//       };
-//     },
-//   },
-// });
-// export const {
-//   allProductRequest,
-//   allProductSuccess,
-//   allProductFail,
-//   clearError,
-// } = productSlice.actions;
-// export default productSlice.reducer;
+const productSlice = createSlice({
+  name: "product",
+  initialState,
+  reducers: {
+    // getProduct: (state, action) => {
+    //   state.products = action.payload;
+    // },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchData.fulfilled, (state, action) => {
+        state.productssss = action.payload;
+      })
+      .addCase(fetchData.pending, (state, action) => {})
+      .addCase(fetchData.rejected, (state, action) => {});
+  },
+});
+export const { getProduct } = productSlice.actions;
+export default productSlice.reducer;
