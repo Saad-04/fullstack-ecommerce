@@ -5,6 +5,7 @@ import webFont from "webfontloader";
 import Footer from "./components/layouts/footer/Footer.js";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/home/Home.js";
+import './index.css'
 
 function App() {
   useEffect(() => {
