@@ -4,7 +4,7 @@ const {
   createProduct,
   updateProduct,
   deleteProduct,
-  getProductDetail,
+  getProductDetails,
   createAndUpdateReview,
   getProductAllReviews,
   deleteProductReview,
@@ -15,10 +15,10 @@ const { isAuthenticated, ownerRoles } = require("../middleware/auth.js");
 const router = express.Router();
 // all routes start form here 
 router.route("/products").get(getAllProduct);
+router.route("/product/detail/:id").get(getProductDetails);
 router
   .route("/admin/product/create")
   .post(isAuthenticated, ownerRoles("admin"), createProduct);
-router.route("product/detail/:id").get(getProductDetail);
 router
   .route("/admin/product/:id")
   .put(isAuthenticated, ownerRoles("admin"), updateProduct)

@@ -19,7 +19,7 @@ function Header() {
     link4Url:"/about",
     profileIconUrl:"/login",
     link1Size:"1.3vmax",
-    link1Color:"rgba(35 35 350.8)",
+    link1Color:"black",
     nav1justifyContent:"flex-end",
     nav2justifyContent:"flex-end",
     nav3justifyContent:"flex-start",

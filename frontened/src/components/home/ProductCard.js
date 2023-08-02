@@ -7,19 +7,19 @@ function ProductCard({ product }) {
     edit: false,
     color: "rgba(255,255,255,0.1)",
     activeColor: "tomato",
-    value: 5,
+    value: product.ratings,
     // isHalf: true
   };
-
+  // 
   return (
-    <Link className="productCard" to={product._id}>
-      <img src={product.images[0].url} alt={product.name} />
-      <p>{product.name}</p>
+    <Link className="productCard" to={product?._id} >
+      <img src={product?.image[0]?.url} alt={product.name} />
+      <p>{product?.name}</p>
       <ReactStars {...options}/>
-      <span>review 433</span>
+      <span>{product.numOfReview} review</span>
       <div>
       </div>
-      <span>{`₹${product.price}`}</span>
+      <span>{`₹${product?.price}`}</span>
     </Link>
   );
 }

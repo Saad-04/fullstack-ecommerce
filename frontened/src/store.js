@@ -1,11 +1,10 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import { combineReducers, applyMiddleware, createStore } from "redux";
-import thunk from "redux-thunk";
-import logger from "redux-logger";
+import { configureStore } from "@reduxjs/toolkit";
 import productReducer from "./reducers/productReducer.js";
+import detailProduct from "./reducers/detailProduct.js";
 
 export const store = configureStore({
   reducer: {
     product: productReducer,
+    detailPro:detailProduct
   },
 });

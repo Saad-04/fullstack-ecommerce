@@ -31,8 +31,9 @@ exports.createProduct = async (req, res, next) => {
 // get all products
 exports.getAllProduct = async (req, res, next) => {
   try {
+    
     //apiFeature is =  this keryword
-    let resultPerPage = 3;
+    let resultPerPage = 8;
     const productCount = await Product.countDocuments();
     const apiFeature = new ApiFeatures(Product.find(), req.query)
       .search()
@@ -48,15 +49,18 @@ exports.getAllProduct = async (req, res, next) => {
   }
 };
 
-exports.getProductDetail = async (req, res, next) => {
-  try {
-    const product = await Product.findById(req?.params?.id);
-    if (product) {
-      response(res, 200, true, product, null);
-    }
-  } catch (error) {
-    next(new ErrorHandler(error.message, 404));
+// Get Product Details
+exports.getProductDetails = async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(new ErrorHander("Product not found", 404));
   }
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
 };
 
 // updagte products
