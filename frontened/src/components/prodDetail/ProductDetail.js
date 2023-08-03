@@ -11,7 +11,7 @@ function ProductDetail() {
 
   useEffect(() => {
     dispatch(fetchProductDetail(id));
-  }, [dispatch,id])
+  }, [dispatch,id]);
 
   return (
     <Fragment>
