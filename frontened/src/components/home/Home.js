@@ -14,16 +14,15 @@ function Home() {
 
   const dispatch = useDispatch();
   const alert = useAlert()
-  const { user, loading, error } = useSelector((state) => state.product.products);
-  const  data = useSelector((state) => state.detailPro.product); 
+  const { product, loading, error,productCount } = useSelector((state) => state.product.products);
+  
 
   useEffect(() => {
     if(error){
       return alert.error(error)
     }
     dispatch(fetchProduct());
-    dispatch(fetchProductDetail("64ca71e7eb1bedd86ac884c4"));
-  }, [dispatch,error]);
+  }, [dispatch,error,alert]);
 
   return (
  <>
@@ -41,8 +40,8 @@ function Home() {
  </div>
  <h2 className="homeHeading">Featured Products</h2>
  <div className="container" id="container">
-   {user && //this user reture array of multiple objects [{},{},{}]
-     user.map((e) => {
+   {product && //this user reture array of multiple objects [{},{},{}]
+   product.map((e) => {
        return <ProductCard product={e} />;
      })}
  </div>

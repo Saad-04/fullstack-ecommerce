@@ -6,6 +6,7 @@ import Footer from "./components/layouts/footer/Footer.js";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/home/Home.js";
 import './index.css'
+import ProductDetail from "./components/prodDetail/ProductDetail.js";
 
 function App() {
   useEffect(() => {
@@ -20,7 +21,9 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" Component={Home} />
+        <Route path="/" element={<Home/>} />
+        <Route path="/product/detail/:id" element={<ProductDetail/>} />
+      
       </Routes>
       <Footer />
     </Router>

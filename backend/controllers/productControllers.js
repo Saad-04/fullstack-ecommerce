@@ -42,7 +42,11 @@ exports.getAllProduct = async (req, res, next) => {
     const product = await apiFeature.query;
 
     if (product) {
-      response(res, 200, true, product, productCount);
+      res.status(200).json({
+        success: true, 
+        product,
+         productCount
+      })
     }
   } catch (err) {
     next(new ErrorHandler(err.message, 404)); //this next is goes to errorMiddleware function which declare in app.use in app.js
