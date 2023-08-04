@@ -11,6 +11,10 @@ const initialState = {
     name: "detailPro",
     initialState,
     reducers: {
+      clearErrors:(state,action)=>{
+        state.loading = false;
+        state.error = null
+      }
     },
     extraReducers: (builder) => {
       builder
@@ -19,8 +23,8 @@ const initialState = {
           state.loading = false
         })
         .addCase(fetchProductDetail.pending, (state, action) => {
-          state.loading = true
-          return state
+          state.loading = true;
+           return state
         })
         .addCase(fetchProductDetail.rejected, (state, action) => {
           state.loading = false
@@ -28,7 +32,7 @@ const initialState = {
         });
     },
   });
-  // export const { getProduct } = productSlice.actions;
+  export const { clearErrors } = productDetailSlice.actions;
   export default productDetailSlice.reducer;
   
   

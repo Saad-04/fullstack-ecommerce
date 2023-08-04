@@ -153,12 +153,12 @@ exports.getProductAllReviews = async (req, res, next) => {
     if (!req.query.id) {
       response(res, 200, true, null, "please add query  ");
     }
+    if (!product) {
+      response(res, 200, true, null, " product not found");
+    }
 
     if (allReview) {
       response(res, 200, true, allReview, "done ");
-    }
-    if (!allReview) {
-      response(res, 200, true, null, " review section is empty ");
     }
   } catch (err) {
     next(new ErrorHandler(err.message, 404)); //this next is goes to errorMiddleware function which declare in app.use in app.js

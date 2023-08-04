@@ -5,21 +5,20 @@ import "./home.css";
 function ProductCard({ product }) {
   const options = {
     edit: false,
-    color: "rgba(255,255,255,0.1)",
+    color: "lightGrey",
     activeColor: "tomato",
     value: product.ratings,
-    // isHalf: true
+    isHalf: true
   };
-  // 
+  //
   return (
-    <Link className="productCard" to={`/product/detail/${product._id}`} >
-      <img src={product?.image[0]?.url} alt={product.name} />
-      <p>{product?.name}</p>
-      <ReactStars {...options}/>
+    <Link className="productCard" to={`/product/detail/${product._id}`}>
+      <img src={product.image[0].url} alt={product.name} />
+      <p>{product.name}</p>
+      <ReactStars {...options} />
       <span>{product.numOfReview} review</span>
-      <div>
-      </div>
-      <span>{`₹${product?.price}`}</span>
+      <div></div>
+      <span>{`₹${product.price}`}</span>
     </Link>
   );
 }
