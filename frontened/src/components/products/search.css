@@ -3,9 +3,9 @@
     height: 100vh;
     max-width: 100%;
     display: flex;
+    /* align-items: center; */
     justify-content: center;
-    align-items: center;
-    background-color: rgb(231, 231, 231);
+    background-color: #e7e7e7;
     position: fixed;
     top: 0%;
     left: 0;
@@ -18,19 +18,23 @@
     color: rgba(0, 0, 0, 0.637);
     padding: 1vmax 2vmax;
     width: 50%;
+    border-top-left-radius:6px ;
+    border-bottom-left-radius:6px ;
     outline: none;
-    border-radius: 0%;
+    
     font: 300 1.1vmax cursive;
     box-sizing: border-box;
-    height: 8%;
+    height: 7%;
   }
   
   .searchBox > input[type="submit"] {
-    height: 8%;
+    height: 7%;
     border-radius: 0%;
-    background-color: tomato;
+    background-color: purple;
     border: none;
     padding: 1vmax;
+    border-top-right-radius:6px ;
+    border-bottom-right-radius:6px ;
     width: 10%;
     font: 300 1.1vmax "Roboto";
     cursor: pointer;

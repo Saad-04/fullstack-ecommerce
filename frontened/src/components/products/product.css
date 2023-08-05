@@ -45,8 +45,9 @@
   }
   .page-link {
     text-decoration: none;
-    font: 300 0.7vmax "Roboto";
-    color: rgb(80, 80, 80);
+    font: 300 1vmax "Roboto";
+    color: black;
+    
     transition: all 0.3s;
   }
   
@@ -59,11 +60,13 @@
   }
   
   .pageItemActive {
-    background-color: tomato;
+    border: 1.2px solid black;
   }
   
   .pageLinkActive {
-    color: white;
+    color: black;
+  
+    font: bolder;
   }
   
   .filterBox {

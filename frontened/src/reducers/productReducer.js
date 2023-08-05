@@ -5,6 +5,7 @@ const initialState = {
   products: [],
   loading:false,
   error:null
+  
 };
 const productSlice = createSlice({
   name: "product",
@@ -15,7 +16,7 @@ const productSlice = createSlice({
     builder
       .addCase(fetchProduct.fulfilled, (state, action) => {
         state.products= action.payload;
-        state.loading = false
+        state.loading = false;
       })
       .addCase(fetchProduct.pending, (state, action) => {
         state.loading = true

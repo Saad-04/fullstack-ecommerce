@@ -22,15 +22,17 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/product/detail/:id" element={<ProductDetail/>} />
-        <Route path="/products" element={<Products/>} />
-        <Route path="/search" element={<Search/>} />
-      
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/product/detail/:id" element={<ProductDetail />} />
+        <Route exact path="/products" element={<Products />} />
+        <Route exact path="/products/:keyword" element={<Products />} />
+
+        <Route path="/search" element={<Search />} />
+
       </Routes>
       <Footer />
     </Router>
   );
 }
-
+//  <Route path="/products/:keyword" element={<Products/>} /> this is for search query method 
 export default App;
