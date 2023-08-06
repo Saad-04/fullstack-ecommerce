@@ -17,7 +17,7 @@ function Home() {
   );
 
   useEffect(() => {
-    if(error){
+    if (error) {
       alert.error(error);
       dispatch(clearErrors())
     }
@@ -43,10 +43,11 @@ function Home() {
           </div>
           <h2 className="homeHeading">Featured Products</h2>
           <div className="container" id="container">
-            {product && //this user reture array of multiple objects [{},{},{}]
-              product.map((e) => {
+            {product ? //this user reture array of multiple objects [{},{},{}]
+              (product.map((e) => {
                 return <ProductCard product={e} />;
-              })}
+              })):<Loader />
+            }
           </div>
         </>
       )}

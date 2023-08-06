@@ -31,8 +31,9 @@ const productSchema = new mongoose.Schema({
     },
   ],
   category: {
-    type: [String, "please select a category"],
-    required: true,
+    type: String,
+    required: [true,, "please select a category"],
+    default:"all"
   },
   stock: {
     type: Number,

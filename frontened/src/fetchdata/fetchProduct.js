@@ -12,10 +12,22 @@ import axios from "axios";
 //     return error.response.data.message;
 //   }
 // });
-export const fetchProduct = createAsyncThunk("product/getProduct", async ({ keyword = '', currentPage, price = [0, 30000] }) => {
+export const fetchProduct = createAsyncThunk("product/getProduct", async ({ keyword = '', currentPage, price = [0, 30000] ,category}) => {
   try {
-    const { data } = await axios.get(`/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gt]=${price[0]}&price[lt]=${price[1]}`);
-    return data;
+    let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gt]=${price[0]}&price[lt]=${price[1]}&category=${category}`
+
+    if(!category && !keyword  ){
+      link = `/api/v1/products`
+    }
+    if(category === 'all' && price ){
+      link = `/api/v1/products`
+    }
+    if(keyword && !category ){
+      link = `/api/v1/products?keyword=${keyword}&page=${currentPage}`
+    }
+
+    const { data } = await axios.get(link);
+  return data
   } catch (error) {
     return error.response.data.message;
   }

@@ -9,15 +9,16 @@ import MetaData from "../layouts/MetaData.js";
 import "./product.css";
 import { useParams } from "react-router-dom";
 import Pagination from 'react-js-pagination'
-import Slider from '@mui/material/Slider';
-import Box from '@mui/material/Box';
+// import Slider from '@mui/material/Slider';
+// import Box from '@mui/material/Box';
 
 function Products() {
-  const [price, setPrice] = useState([0, 30000])//this for slider 
+  let [price, setPrice] = useState([0, 30000])
+  let [category, setcategory] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)//this is for pagination
   const dispatch = useDispatch();
   const alert = useAlert();
   const { keyword } = useParams() //here we access keyword which pass in search.js page 
-  let [currentPage, setCurrentPage] = useState(1)//this is for pagination
   const { product, loading, error, productCount, resultPerPage } = useSelector(
     (state) => state.product.products
   );
@@ -27,34 +28,65 @@ function Products() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(fetchProduct({ keyword, currentPage, price })); //here we pass keyword which come from fetchProduct.js parameter
-  }, [dispatch, error, product, keyword, alert, currentPage, price]);
+    dispatch(fetchProduct({ keyword, currentPage, price,category })); //here we pass keyword which come from fetchProduct.js parameter
+  }, [dispatch,product,alert,error, keyword, currentPage, price, category]);
 
   // If there's an error, display the error message using the alert
   useEffect(() => {
     if (error) {
-      <Loader />;
       alert.error(error);
     }
-  }, [error, product, alert]);
+  }, [error, product, price, alert]);
   // if loading is true and product is not defined then show loader 
   if (loading || !product) {
     return <Loader />;
   }
 
-  const setCurrentPageNo = (e) => {
-    setCurrentPage(e)//this e is current page number 
-  }
+  const setCurrentPageNo = (pageNumber) => {//this is use for pagination not slider 
+    setCurrentPage(pageNumber);
+  };
+
 
   // slider area start here 
 
 
-  function valuetext(value) {
-    return `${value}°C`;
-  }
-  const handleChange = (event, newValue) => {
-    setPrice(newValue);
+  // function valuetext(value) {
+  //   return `${value}°C`;
+  // }
+  const priceChange = (e) => {
+    let val = e.target.value.split('-')
+
+    setPrice([parseInt(val[0]), parseInt(val[1])])
   };
+
+  const options = [
+
+    {
+      value: '0-10000',
+      text: '0-10000'
+    },
+
+    {
+      value: '0-200',
+      text: '0-200'
+    },
+    {
+      value: '20000-30000',
+      text: '20000-30000'
+    }
+
+  ]
+  const categoryChange = (e) => {
+    let cat = e.target.value
+    setcategory(cat)
+  }
+  const categories = [
+    { text: 'all', value: 'all' },
+    { text: 'apple', value: 'apple' },
+    { text: 'fish', value: 'fish' },
+    { text: 'mango', value: "mango" },
+    { text: 'orange', value: "orange" },
+  ]
   return (
     <Fragment>
 
@@ -72,18 +104,20 @@ function Products() {
               })}
           </div>
 
+
           <div className="filterBox">
-            <Box sx={{ width: 200 }}>
-              <Slider
-                getAriaLabel={() => 'Temperature range'}
-                value={price}
-                onChange={handleChange}
-                valueLabelDisplay="auto"
-                getAriaValueText={valuetext}
-                max={30000}
-                min={0}
-              />
-            </Box>
+            <label for='price' >price</label>
+            <select onChange={priceChange} >
+              {options.map((e, i) => {
+                return <option key={i} value={e.value} >{e.text}</option>
+              })}
+            </select>
+            <label for='category' >Category</label>
+            <select onChange={categoryChange} >
+              {categories.map((e, i) => {
+                return <option key={i} value={e.value} >{e.text}</option>
+              })}
+            </select>
           </div>
 
           {resultPerPage < productCount &&

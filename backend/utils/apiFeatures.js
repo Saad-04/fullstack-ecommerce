@@ -6,11 +6,11 @@ class ApiFeatures {
   search() {
     const keyword = this.queryStr.keyword
       ? {
-          name: {
-            $regex: this.queryStr.keyword,
-            $options: "i",
-          },
-        }
+        name: {
+          $regex: this.queryStr.keyword,
+          $options: "i",
+        },
+      }
       : {};
     // here single product store in this.query
     this.query = this.query.find({ ...keyword }); //this is single product
@@ -18,28 +18,26 @@ class ApiFeatures {
   }
 
   filters() {
-    const copyQuery = { ...this.queryStr };
-    // for removing field of category
-    console.log(copyQuery);
-
+    const copyQuery = { ...this.queryStr };//this copyquery is the name of query like 
+    // ?q=name this q=copyquery 
     const removeField = ['keyword', 'page', 'limit']
     removeField.forEach(e => delete copyQuery[e])
 
     let queryStr = JSON.stringify(copyQuery);
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (match) => `$${match}`);
     this.query = this.query.find(JSON.parse(queryStr));
-    console.log(queryStr);
-
     return this;
+
   }
+
 
   pagination(resultPerPage) {
     let pageNumber = Number(this.queryStr.page) || 1;
     let skip = resultPerPage * (pageNumber - 1);
-    console.log(skip);
-    this.query = this.query.skip(skip).limit(resultPerPage).exec();
-    return this ;
+    this.query = this.query.skip(skip).limit(resultPerPage);
+    return this;
   }
+
 }
 
 module.exports = ApiFeatures;

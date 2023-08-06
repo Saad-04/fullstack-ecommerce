@@ -33,14 +33,14 @@ exports.getAllProduct = async (req, res, next) => {
   try {
 
     //apiFeature is =  this keryword
-    let resultPerPage = 4;
+    const resultPerPage = 4;
     const productCount = await Product.countDocuments();
 
     const apiFeature = new ApiFeatures(Product.find(), req.query)
       .search()
-      .filters()
-      .pagination(resultPerPage);
-    const product = await apiFeature.query;
+      .filters().pagination(resultPerPage);
+
+    const product = await apiFeature.query
 
     if (product) {
       res.status(200).json({

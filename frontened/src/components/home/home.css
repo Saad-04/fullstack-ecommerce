@@ -78,10 +78,10 @@
     text-decoration: none;
     color: rgb(48, 48, 48);
     margin: 2vmax;
-    box-shadow: ;
+    
 /* background-color: black; */
     transition: all 0.5s;
-    padding-bottom: 0.5vmax;
+    /* padding-bottom: 0.5vmax; */
   }
   span
   .productCard > img {
