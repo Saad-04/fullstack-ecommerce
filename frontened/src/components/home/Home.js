@@ -8,6 +8,7 @@ import Loader from "../layouts/loader/Loader.js";
 import { useAlert } from "react-alert";
 import { fetchProduct } from "../../fetchdata/fetchProduct.js";
 import { clearErrors } from "../../reducers/detailProduct";
+import { Link } from "react-router-dom";
 
 function Home() {
   const dispatch = useDispatch();
@@ -46,9 +47,13 @@ function Home() {
             {product ? //this user reture array of multiple objects [{},{},{}]
               (product.map((e) => {
                 return <ProductCard product={e} />;
-              })):<Loader />
+              })) : <Loader />
             }
           </div>
+          <Link to='/products' >
+            <h2 className="moreHeading">See more Products</h2>
+          </Link>
+
         </>
       )}
     </>

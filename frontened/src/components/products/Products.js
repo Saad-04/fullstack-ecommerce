@@ -9,12 +9,18 @@ import MetaData from "../layouts/MetaData.js";
 import "./product.css";
 import { useParams } from "react-router-dom";
 import Pagination from 'react-js-pagination'
+import { FaStar } from 'react-icons/fa'
 // import Slider from '@mui/material/Slider';
 // import Box from '@mui/material/Box';
 
 function Products() {
+  const [showPriceOptions, setShowPriceOptions] = useState(false);
+  const [showCategoryOptions, setShowCategoryOptions] = useState(false);
+
+
   let [price, setPrice] = useState([0, 30000])
   let [category, setcategory] = useState('')
+  let [rating, setRating] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)//this is for pagination
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -28,8 +34,8 @@ function Products() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(fetchProduct({ keyword, currentPage, price,category })); //here we pass keyword which come from fetchProduct.js parameter
-  }, [dispatch,product,alert,error, keyword, currentPage, price, category]);
+    dispatch(fetchProduct({ keyword, currentPage, price, category,rating })); //here we pass keyword which come from fetchProduct.js parameter
+  }, [dispatch, alert, error, keyword, currentPage, price, category,rating]);
 
   // If there's an error, display the error message using the alert
   useEffect(() => {
@@ -60,21 +66,18 @@ function Products() {
   };
 
   const options = [
-
     {
       value: '0-10000',
       text: '0-10000'
     },
-
     {
-      value: '0-200',
-      text: '0-200'
+      value: '10000-20000',
+      text: '10000-20000'
     },
     {
       value: '20000-30000',
       text: '20000-30000'
     }
-
   ]
   const categoryChange = (e) => {
     let cat = e.target.value
@@ -87,8 +90,65 @@ function Products() {
     { text: 'mango', value: "mango" },
     { text: 'orange', value: "orange" },
   ]
+
+  // header section 
+  const handlePriceHover = () => {
+    setShowPriceOptions(true);
+    setShowCategoryOptions(false);
+  };
+
+  const handleCategoryHover = () => {
+    setShowCategoryOptions(true);
+    setShowPriceOptions(false);
+  };
+  // FaStar section start here 
+  const fastarOptions = {
+    size: 15,
+    color: "gold",
+    cursor: 'pointer'
+  }
+  const handleRating =(e)=>{
+    if (rating === e) {
+      // If the same rating is clicked again, reset the rating filter
+      setRating(0);
+    } else {
+      setRating(e);
+    }
+  }
   return (
     <Fragment>
+      <header className="header">
+        <div className="header-container">
+          <div
+            className="header-item"
+            onMouseEnter={handlePriceHover}
+            onMouseLeave={() => setShowPriceOptions(false)}
+          >
+            Price
+            {showPriceOptions && (
+              <div className="options">
+                <option>1-200</option>
+                <option>200-333</option>
+                <option>300-400</option>
+              </div>
+            )}
+          </div>
+          <div
+            className="header-item"
+            onMouseEnter={handleCategoryHover}
+            onMouseLeave={() => setShowCategoryOptions(false)}
+          >
+            Category
+            {showCategoryOptions && (
+              <div className="options">
+                <option>Fruits</option>
+                <option>Vegetables</option>
+                <option>Meat</option>
+              </div>
+            )}
+          </div>
+        </div>
+      </header>
 
       {loading ? (
         <Loader />
@@ -98,26 +158,39 @@ function Products() {
           <h2 className="productsHeading">Products</h2>
 
           <div className="products">
+
             {
               product.map((every) => {
                 return <ProductCard product={every} key={product._id} />;
               })}
+
           </div>
 
 
           <div className="filterBox">
-            <label for='price' >price</label>
+            <p for='price' >price</p>
             <select onChange={priceChange} >
               {options.map((e, i) => {
                 return <option key={i} value={e.value} >{e.text}</option>
               })}
             </select>
-            <label for='category' >Category</label>
+            <p for='category' >Category</p>
             <select onChange={categoryChange} >
               {categories.map((e, i) => {
                 return <option key={i} value={e.value} >{e.text}</option>
               })}
             </select>
+          </div>
+
+          <div className="ratingStar">
+            
+              {[...Array(5)].map((e, i) => {
+                let starValue = i + 1;
+                return <FaStar onClick={()=>handleRating(starValue)} key={i} {...fastarOptions} className="fastar" />
+              })}
+
+          
+
           </div>
 
           {resultPerPage < productCount &&

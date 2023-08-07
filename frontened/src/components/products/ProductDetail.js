@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Carousel from "react-material-ui-carousel";
@@ -10,14 +10,14 @@ import { useAlert } from "react-alert";
 import ReviewCard from "./ReviewCard.js";
 import ReactStars from "react-rating-stars-component";
 import { clearErrors } from '../../reducers/detailProduct.js'
-function ProductDetail() {
-  const dispatch = useDispatch();
-  const alert = useAlert();
 
-  const { id } = useParams();
+function ProductDetail() {
   const { product, loading, error } = useSelector(
     (state) => state.detailPro.detail
   );
+  const dispatch = useDispatch();
+  const alert = useAlert();
+  const { id } = useParams();
 
 
   useEffect(() => { //when page load then this effect call every time and fetch data from fetchProductDetail function
@@ -29,6 +29,7 @@ function ProductDetail() {
     dispatch(fetchProductDetail(id));
 
   }, [dispatch, id, error, alert]);
+  // if error come then alert error message 
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -45,6 +46,8 @@ function ProductDetail() {
   const submitReviewToggle = () => {
 
   }
+
+
   let options = {
     edit: false,
     color: "lightGrey",

@@ -3,6 +3,8 @@ import "./productdetail.css";
 import ReactStars from "react-rating-stars-component";
 import profilePng from '../../images/Profile.png'
 function ReviewCard({ review }) {
+ 
+ 
   const options = {
     color: "lightGrey",
     value: review.rating,

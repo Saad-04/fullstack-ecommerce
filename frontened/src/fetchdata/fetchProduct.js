@@ -12,22 +12,33 @@ import axios from "axios";
 //     return error.response.data.message;
 //   }
 // });
-export const fetchProduct = createAsyncThunk("product/getProduct", async ({ keyword = '', currentPage, price = [0, 30000] ,category}) => {
+export const fetchProduct = createAsyncThunk("product/getProduct", async ({ keyword = '', currentPage, price = [0, 30000], category ,rating}) => {
   try {
-    let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gt]=${price[0]}&price[lt]=${price[1]}&category=${category}`
 
-    if(!category && !keyword  ){
-      link = `/api/v1/products`
+    let link = `/api/v1/products?page=${currentPage}`
+
+    if (category) {
+      link = `/api/v1/products?price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&page=${currentPage}`
     }
-    if(category === 'all' && price ){
-      link = `/api/v1/products`
+    if (category === 'all' && !keyword) {
+      link = `/api/v1/products?price[gte]=${price[0]}&price[lte]=${price[1]}&page=${currentPage}`
     }
-    if(keyword && !category ){
-      link = `/api/v1/products?keyword=${keyword}&page=${currentPage}`
+    if (keyword && !category) {
+      link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`
     }
+    if (!keyword && !category && rating) {
+      link = `/api/v1/products?page=${currentPage}&ratings[gte]=${rating}`
+    }
+   
+
+    
+
+
+    // this query for rating 
+
 
     const { data } = await axios.get(link);
-  return data
+    return data
   } catch (error) {
     return error.response.data.message;
   }
