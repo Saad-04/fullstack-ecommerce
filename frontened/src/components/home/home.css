@@ -82,11 +82,13 @@
 
 .container {
   display: flex;
-  margin: 2vmax auto;
-  width: 90vw;
+  margin: auto;
+  width: 100vw ;
   flex-wrap: wrap;
-  justify-content: center;
+  /* align-items: center; */
+  justify-content:center;
   max-width: 100%;
+
 }
 
 .productCard {
@@ -96,7 +98,10 @@
   text-decoration: none;
   color: rgb(48, 48, 48);
   margin: 2vmax;
-
+  border-radius: 5px;
+  background-color: rgba(255, 255, 224, 0.168);
+  border: 1px solid rgba(0, 0, 0, 0.384);
+text-transform: capitalize;
   /* background-color: black; */
   transition: all 0.5s;
   /* padding-bottom: 0.5vmax; */
@@ -109,45 +114,49 @@
 .productCard > div {
   margin: 0.5vmax;
   display: flex;
+  font-weight: bolder;
   justify-content: flex-start;
   align-items: center;
 }
 
-.fastar :hover{
-color: orangered
-;
+.fastar :hover {
+  color: orangered;
 }
 
 .productCard > p {
   font-family: "Roboto";
   font-size: 1.2vmax;
+  font-weight: bold;
   margin: 1vmax 0.5vmax;
   margin-bottom: 0;
 }
 
-.productCard > span {
-  margin: 0.5vmax;
-  color: tomato;
+.productCard > span >span {color: black; font: bolder}
+.productCard > span  {
+  margin:0.3vmax 0.5vmax;
+  color: grey;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 1vmax;
 }
 
 .productCard:hover {
   box-shadow: 0 0 5px rgba(15, 15, 15, 0.26);
-
+  
   transform: translateY(-1vmax);
 }
 
 @media screen and (max-width: 600px) {
   .productCard > img {
     height: 10vmax;
+    width: auto;
   }
   .container {
-    width: 95vw;
+    width: 100vw;
   }
   .productCard {
-    width: 10vmax;
-    margin: 2rem;
+    margin: 1vmax;
+    width: 16vmax;
+    
   }
   .productCard > p {
     font-size: 1.5vmax;
@@ -157,14 +166,19 @@ color: orangered
     margin: 0vmax;
     display: block;
   }
-
+ 
   .productCard > span {
     font-size: 1.5vmax;
+   
   }
 
   .productCard > div > span {
     margin: 0 0.5vmax;
     font: 300 1vmax "Roboto";
+    color: black;
+    font-weight: bold;
+    font-size: small;
+   
   }
   .moreHeading {
     width: 15vmax;

@@ -8,6 +8,7 @@ function ProductCard({ product }) {
     color: "lightGrey",
     activeColor: "tomato",
     value: product.ratings,
+    size: window.innerWidth < 600?10:16,
     isHalf: true
   };
   //
@@ -16,9 +17,10 @@ function ProductCard({ product }) {
       <img src={product.image[0].url} alt={product.name} />
       <p>{product.name}</p>
       <ReactStars {...options} />
-      <span>{product.numOfReview} review</span>
-      <div></div>
-      <span>{`₹${product.price}`}</span>
+      <span>Review:<span>{product.numOfReview}</span> </span>
+      <div>
+      <span>{`Rs ${product.price}`}</span>
+      </div>
     </Link>
   );
 }

@@ -34,8 +34,8 @@ function Products() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(fetchProduct({ keyword, currentPage, price, category,rating })); //here we pass keyword which come from fetchProduct.js parameter
-  }, [dispatch, alert, error, keyword, currentPage, price, category,rating]);
+    dispatch(fetchProduct({ keyword, currentPage, price, category, rating })); //here we pass keyword which come from fetchProduct.js parameter
+  }, [dispatch, alert, error, keyword, currentPage, price, category, rating]);
 
   // If there's an error, display the error message using the alert
   useEffect(() => {
@@ -107,7 +107,7 @@ function Products() {
     color: "gold",
     cursor: 'pointer'
   }
-  const handleRating =(e)=>{
+  const handleRating = (e) => {
     if (rating === e) {
       // If the same rating is clicked again, reset the rating filter
       setRating(0);
@@ -127,14 +127,13 @@ function Products() {
             Price
             {showPriceOptions && (
               <div className="options">
-                <option>1-200</option>
-                <option>200-333</option>
-                <option>300-400</option>
+                <option>d</option>
+                <option>d</option>
+                <option>d</option>
               </div>
             )}
           </div>
-          <div
-            className="header-item"
+          <div className="header-item"
             onMouseEnter={handleCategoryHover}
             onMouseLeave={() => setShowCategoryOptions(false)}
           >
@@ -160,9 +159,10 @@ function Products() {
           <div className="products">
 
             {
-              product.map((every) => {
-                return <ProductCard product={every} key={product._id} />;
-              })}
+              product.map((every, i) => {
+                return (<ProductCard product={every} key={i} />)
+              })
+            }
 
           </div>
 
@@ -180,18 +180,16 @@ function Products() {
                 return <option key={i} value={e.value} >{e.text}</option>
               })}
             </select>
-          </div>
-
-          <div className="ratingStar">
+            <p for='ratings' >select rating</p>
             
+
               {[...Array(5)].map((e, i) => {
                 let starValue = i + 1;
-                return <FaStar onClick={()=>handleRating(starValue)} key={i} {...fastarOptions} className="fastar" />
-              })}
-
-          
-
+                return <FaStar onClick={() => handleRating(starValue)} key={i} {...fastarOptions} className="fastar" />
+              })} 
           </div>
+
+
 
           {resultPerPage < productCount &&
             <div className="paginationBox">

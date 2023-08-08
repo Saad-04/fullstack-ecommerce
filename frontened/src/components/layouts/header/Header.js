@@ -1,6 +1,7 @@
 import React from "react";
 import { ReactNavbar } from "overlay-navbar";
 import logo from '../../../images/saad-logo.png'
+import {FaSearch, FaShoppingCart, FaUser } from 'react-icons/fa'
 function Header() {
   const options = {
     burgerColorHover: "#eb4034",
@@ -22,8 +23,16 @@ function Header() {
     link2Url: "/products",
     link3Url: "/contact",
     link4Url: "/about",
-
-    profileIconUrl: "/login",
+    //search icon 
+    SearchIconElement:<FaSearch/>,
+    searchIconColor:"black",
+    searchIconUrl:'/search',
+    searchIconSize:'1vmax',
+    // profile icon 
+    ProfileIconElement:<FaUser/>,
+    profileIconColor:"black",
+    profileIconUrl:'/',
+    profileIconSize:'1vmax',
     link1Size: "1.3vmax",
     link1Color: "black",
     nav1justifyContent: "flex-end",
@@ -32,16 +41,11 @@ function Header() {
     nav4justifyContent: "flex-start",
     link1ColorHover: "#eb4034",
     link1Margin: "1vmax",
-    profileIconColor: "rgba(35 35 350.8)",
-    searchIconColor: "rgba(35 35 350.8)",
-    cartIconColor: "rgba(35 35 350.8)",
-    profileIconColorHover: "#eb4034",
-    searchIconColorHover: "#eb4034",
-    cartIconColorHover: "#eb4034",
-    cartIconMargin: "1vmax"
+    
+  
   }
   return (
-    <ReactNavbar {...options}></ReactNavbar >
+    <ReactNavbar {...options} ></ReactNavbar >
   );
 }
 

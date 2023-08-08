@@ -9,6 +9,7 @@ import './index.css'
 import ProductDetail from "./components/products/ProductDetail.js";
 import Products from './components/products/Products.js'
 import Search from './components/products/Search.js'
+import LoginSignUp from "./components/User/LoginSignUp.js";
 function App() {
   useEffect(() => {
     webFont.load({
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/product/detail/:id" element={<ProductDetail />} />
         <Route exact path="/products" element={<Products />} />
         <Route exact path="/products/:keyword" element={<Products />} />
+        <Route exact path="/loginSignUp" element={<LoginSignUp />} />
 
         <Route path="/search" element={<Search />} />
 

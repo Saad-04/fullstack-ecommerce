@@ -49,13 +49,19 @@
   @media screen and (max-width: 600px) {
     .searchBox > input[type="text"] {
       width: 100%;
-      font: 300 4vw cursive;
-      height: 10%;
+      font-family: 'Times New Roman', Times, serif;
+      height: 6%;
+      font-weight:bold ;
+      font-size: 0.5rem;
+      margin-top: 1vmax;
     }
   
     .searchBox > input[type="submit"] {
-      height: 10%;
+      height: 6%;
+      margin-top: 1vmax;
       width: 30%;
-      font: 300 4vw "Roboto";
+      font-weight:bold ;
+      font-size: 0.5rem;
+      font-family: 'Times New Roman', Times, serif
     }
   }

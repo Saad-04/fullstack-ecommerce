@@ -31,7 +31,7 @@ function Home() {
         <Loader />
       ) : (
         <>
-          <MetaData title="Ecommerce" />
+          <MetaData title="Ecommerce--product" />
           <div className="banner">
             <p>Welcome to Ecommerce</p>
             <h1>FIND AMAZING PRODUCTS BELOW</h1>

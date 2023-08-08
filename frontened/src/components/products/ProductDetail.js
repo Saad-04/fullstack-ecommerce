@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Carousel from "react-material-ui-carousel";
@@ -10,6 +10,7 @@ import { useAlert } from "react-alert";
 import ReviewCard from "./ReviewCard.js";
 import ReactStars from "react-rating-stars-component";
 import { clearErrors } from '../../reducers/detailProduct.js'
+import MetaData from "../layouts/MetaData.js";
 
 function ProductDetail() {
   const { product, loading, error } = useSelector(
@@ -60,6 +61,7 @@ function ProductDetail() {
       {loading && product ? (
         <Loader />
       ) : (<Fragment>
+        <MetaData title={`${product.name}--Ecommerce`} />
         <div className="ProductDetails">
           <div>
             <Carousel>
@@ -116,15 +118,15 @@ function ProductDetail() {
             <button onClick={submitReviewToggle} className="submitReview">
               Submit Review
             </button>
-          </div>
-        </div>
-        <h3 className="reviewsHeading">REVIEWS</h3>
-        {
-          (product.reviews && product.reviews[0]) ?
-            (product.reviews && product.reviews.map((e) => {
-              return <ReviewCard review={e} />
-            })) : (<p className="noReviews">No Reviews Yet</p>)
-        }
+            </div>
+            </div>
+            <h3 className="reviewsHeading">REVIEWS</h3>
+            {
+              (product.reviews && product.reviews[0]) ?
+                (product.reviews && product.reviews.map((e) => {
+                  return <ReviewCard review={e} />
+                })) : (<p className="noReviews">No Reviews Yet</p>)
+            }
       </Fragment>
       )}
     </Fragment>

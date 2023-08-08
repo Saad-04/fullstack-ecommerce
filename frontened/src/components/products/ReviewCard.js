@@ -9,7 +9,7 @@ function ReviewCard({ review }) {
     color: "lightGrey",
     value: review.rating,
     isHalf:true,
-    size: window.innerWidth < 600?20:50,
+    size: window.innerWidth < 600?20:25,
     edit:false
     // activeColor:"blue"
   
