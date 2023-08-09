@@ -32,14 +32,7 @@ export const fetchProduct = createAsyncThunk("product/getProduct", async ({ keyw
     if (!keyword && !category && rating) {
       link = `/api/v1/products?price[gte]=${price[0]}&price[lte]=${price[1]}&page=${currentPage}&ratings[gte]=${rating}`
     }
-
-
-
-
-
     // this query for rating 
-
-
     const { data } = await axios.get(link);
     return data
   } catch (error) {
