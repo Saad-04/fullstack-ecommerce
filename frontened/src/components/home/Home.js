@@ -9,7 +9,7 @@ import { useAlert } from "react-alert";
 import { fetchProduct } from "../../fetchdata/fetchProduct.js";
 import { clearErrors } from "../../reducers/detailProduct";
 import { Link } from "react-router-dom";
-
+import Header from './Header.js'
 function Home() {
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -24,9 +24,10 @@ function Home() {
     }
     dispatch(fetchProduct());
   }, [dispatch, error, alert]);
-
+  // <Header/>
   return (
     <>
+
       {loading && product ? (
         <Loader />
       ) : (

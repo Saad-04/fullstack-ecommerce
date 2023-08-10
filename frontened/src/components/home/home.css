@@ -85,7 +85,7 @@
   margin: auto;
   width: 100vw ;
   flex-wrap: wrap;
-  /* align-items: center; */
+  align-items: center;
   justify-content:center;
   max-width: 100%;
 

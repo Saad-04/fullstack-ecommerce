@@ -10,12 +10,11 @@ import "./product.css";
 import { useParams } from "react-router-dom";
 import Pagination from 'react-js-pagination'
 import { FaStar } from 'react-icons/fa'
+import Header from "../home/Header.js";
 // import Slider from '@mui/material/Slider';
 // import Box from '@mui/material/Box';
 
 function Products() {
-  const [showPriceOptions, setShowPriceOptions] = useState(false);
-  const [showCategoryOptions, setShowCategoryOptions] = useState(false);
 
 
   let [price, setPrice] = useState([0, 30000])
@@ -90,17 +89,6 @@ function Products() {
     { text: 'mango', value: "mango" },
     { text: 'orange', value: "orange" },
   ]
-
-  // header section 
-  const handlePriceHover = () => {
-    setShowPriceOptions(true);
-    setShowCategoryOptions(false);
-  };
-
-  const handleCategoryHover = () => {
-    setShowCategoryOptions(true);
-    setShowPriceOptions(false);
-  };
   // FaStar section start here 
   const fastarOptions = {
     size: 15,
@@ -117,38 +105,7 @@ function Products() {
   }
   return (
     <Fragment>
-      <header className="header">
-        <div className="header-container">
-          <div
-            className="header-item"
-            onMouseEnter={handlePriceHover}
-            onMouseLeave={() => setShowPriceOptions(false)}
-          >
-            Price
-            {showPriceOptions && (
-              <div className="options">
-                <option>d</option>
-                <option>d</option>
-                <option>d</option>
-              </div>
-            )}
-          </div>
-          <div className="header-item"
-            onMouseEnter={handleCategoryHover}
-            onMouseLeave={() => setShowCategoryOptions(false)}
-          >
-            Category
-            {showCategoryOptions && (
-              <div className="options">
-                <option>Fruits</option>
-                <option>Vegetables</option>
-                <option>Meat</option>
-              </div>
-            )}
-          </div>
-        </div>
-      </header>
-
+    <Header/>
       {loading ? (
         <Loader />
       ) : (

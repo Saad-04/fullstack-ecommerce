@@ -15,7 +15,7 @@ import axios from "axios";
 export const fetchProduct = createAsyncThunk("product/getProduct", async ({ keyword = '', currentPage, price = [0, 30000], category, rating }) => {
   try {
 
-    let link = `/api/v1/products?page=${currentPage}`
+    let link = `/api/v1/products?page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`
 
     if (category) {
       link = `/api/v1/products?price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&page=${currentPage}&ratings[gte]=${rating}`

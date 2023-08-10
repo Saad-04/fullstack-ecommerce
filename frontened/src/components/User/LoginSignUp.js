@@ -54,20 +54,23 @@ const LoginSignUp = () => {
         if (isAuthenticated) {
             navigate('/acount')
         }
-    }, [dispatch, alert, error, isAuthenticated, navigate])
+    }, [dispatch,alert, error, isAuthenticated, navigate])
+    // login function start here 
     const loginSubmit = (e) => {
         e.preventDefault()
+        alert(`this is ${loginEmail} and this is ${loginPassword}`)
         dispatch(loginUser({loginEmail,loginPassword}))
     }
     // here user register form 
     const registerSubmit = (e) => {
         e.preventDefault()
         let myForm = new FormData()//this is built in functio in react.js
+        myForm.set("avater", avatar)
         myForm.set("name", name)
         myForm.set("email", email)
         myForm.set("password", password)
-        myForm.set("avater", avatar)
-        dispatch(registerUser({ myForm }))
+        // alert(`${name}${email}${password}`)
+        dispatch(registerUser({myForm} ))
     }
     const registerDataChange = (e) => {
         if (e.target.name === 'avatar') {

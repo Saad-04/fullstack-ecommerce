@@ -31,10 +31,14 @@ const Search = () => {
   return (
     <>
       <MetaData title="Search A Product -- ECOMMERCE" />
-      <form className="searchBox" onSubmit={submitForm} >
-        <input type="text" placeholder="Search a Product ..." onChange={inputChange} />
-        <input type="submit" value='Search' />
-      </form>
+      <div className="container">
+      <div className="logo">Ecommerce</div>
+        <form className="searchBox" onSubmit={submitForm} >
+          <input type="text" placeholder="Search a Product ..." onChange={inputChange} />
+          <input type="submit" value='Search' />
+        </form>
+      </div>
+
     </>
   );
 };

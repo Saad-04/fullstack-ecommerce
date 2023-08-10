@@ -1,0 +1,65 @@
+/* Header.css */
+.header {
+    width: 100%;
+    background-color: #232f3e;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  h3{
+    color: #fff;
+    font-family: sans-serif;
+  }
+  .header-container {
+    display: flex;
+    width: 95%;
+    padding:2px 0;
+    margin: auto;
+    justify-content: left;
+    align-items: center;
+  }
+  .block-2,.block-3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  .header-item:hover {
+    background-color: #232f3ed1;
+border: 0.5px solid #fff
+  }
+  .header-item {
+    position: relative;
+    padding: 10px;
+    cursor: pointer;
+  font-size: small;
+    color: white;
+    
+    font-family: sans-serif;
+  }
+  
+  .options {
+    position: absolute;
+    top: calc(100% + 0px);
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d0d0d0;
+    z-index: 1;
+    min-width: 100px;
+  }
+  /* SelectContainer styles */
+  
+  
+  .options  option {
+    /* padding: 3px; */
+    padding: 10px;
+  
+    color: black;
+    font-family: sans-serif;
+  }
+  
+  .options  option:hover {
+    background-color: #f0f0f0;
+  }
