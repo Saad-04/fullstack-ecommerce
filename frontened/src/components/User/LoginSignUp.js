@@ -1,12 +1,12 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import "./LoginSignUp.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
 import { loginUser } from "../../fetchdata/fetchLogin.js";
 import { useDispatch, useSelector } from 'react-redux'
-import { clearErrors } from '../../reducers/userReducer.js'
+// import { clearErrors } from '../../reducers/userReducer.js'
 import { useAlert } from 'react-alert'
 import Loader from '.././layouts/loader/Loader.js'
 import { registerUser } from "../../fetchdata/fetchRegister.js";
@@ -14,12 +14,12 @@ import { registerUser } from "../../fetchdata/fetchRegister.js";
 const LoginSignUp = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { user, loading, error, isAuthenticated } = useSelector((state) => state.users)
+    const { loading, error, isAuthenticated } = useSelector((state) => state.users)
     const alert = useAlert()
     let [loginEmail, setLoginEmail] = useState('')//this for user email 
     let [loginPassword, setLoginPassword] = useState('')//this for user password 
-    let [avatar, setAvatar] = useState('')//this for user password 
-    let [avatarPreview, setAvatarPreview] = useState('/Profile.png')//this for user password 
+    // let [avatar, setAvatar] = useState('')//this for user password 
+    // let [avatarPreview, setAvatarPreview] = useState('/Profile.png')//this for user password 
     const [usernow, setUser] = useState({
         name: "",
         email: "",
@@ -48,49 +48,55 @@ const LoginSignUp = () => {
     // here user login 
     useEffect(() => {
         alert.error(error)
-        if (error) {
-            dispatch(clearErrors())
-        }
+
         if (isAuthenticated) {
             navigate('/acount')
         }
-    }, [dispatch,alert, error, isAuthenticated, navigate])
+    }, [dispatch, alert, error, isAuthenticated, navigate])
     // login function start here 
     const loginSubmit = (e) => {
         e.preventDefault()
-        alert(`this is ${loginEmail} and this is ${loginPassword}`)
-        dispatch(loginUser({loginEmail,loginPassword}))
+        // alert(`this is ${loginEmail} and this is ${loginPassword}`)
+        dispatch(loginUser({ loginEmail, loginPassword }))
     }
     // here user register form 
     const registerSubmit = (e) => {
+        console.log(error)
         e.preventDefault()
         let myForm = new FormData()//this is built in functio in react.js
-        myForm.set("avater", avatar)
+        // myForm.set("avater", avatar)
         myForm.set("name", name)
         myForm.set("email", email)
         myForm.set("password", password)
         // alert(`${name}${email}${password}`)
-        dispatch(registerUser({myForm} ))
+        dispatch(registerUser({ myForm }))
     }
     const registerDataChange = (e) => {
-        if (e.target.name === 'avatar') {
-            const reader = new FileReader();
+        // if (e.target.name === 'avatar') {
+        //     const reader = new FileReader();
 
-            reader.onload = () => {
-                if (reader.readyState === 2) {
-                    setAvatarPreview(reader.result);
-                    setAvatar(reader.result);
-                }
-            };
+        //     reader.onload = () => {
 
-            reader.readAsDataURL(e.target.files[0])
+        //         if (reader.readyState === 2) {
+        //             setAvatarPreview(reader.result);
+        //             setAvatar(reader.result);
+        //         }
+        //     };
+        //     console.log(e)
+        //     reader.readAsDataURL(e.target.files[0])
 
-        } else {
-            setUser({ ...usernow, [e.target.name]: [e.target.value] })
-        }
+        // } else {
+        setUser({ ...usernow, [e.target.name]: [e.target.value] })
+
     }
 
-
+    // <img src={avatarPreview} alt="Avatar Preview" />
+    // <input
+    //     type="file"
+    //     name="avatar"
+    //     accept="image/*"
+    //     onChange={registerDataChange}
+    // />
     return (
         <Fragment>
             {loading ? <Loader /> :
@@ -164,13 +170,7 @@ const LoginSignUp = () => {
                                 </div>
 
                                 <div id="registerImage">
-                                    <img src={avatarPreview} alt="Avatar Preview" />
-                                    <input
-                                        type="file"
-                                        name="avatar"
-                                        accept="image/*"
-                                        onChange={registerDataChange}
-                                    />
+
                                 </div>
                                 <input type="submit" value="Register" className="signUpBtn" />
                             </form>

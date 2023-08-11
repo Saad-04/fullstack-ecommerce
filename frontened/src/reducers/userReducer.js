@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginUser } from '../fetchdata/fetchLogin.js'
-import {registerUser} from '../fetchdata/fetchRegister.js'
+// import { registerUser } from '../fetchdata/fetchRegister.js'
 const initialState = {
     user: {},
     loading: false,
@@ -18,20 +18,21 @@ const userLoginSlice = createSlice({
             return state
         }
     },
+    //  || registerUser.fulfilled
     extraReducers: (builder) => {
         builder
-            .addCase(loginUser.fulfilled || registerUser.fulfilled, (state, action) => {
+            .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false
                 state.user = action.payload
                 state.isAuthenticated = true;
                 return state
 
             })
-            .addCase(loginUser.pending|| registerUser.fulfilled, (state, action) => {
+            .addCase(loginUser.pending, (state, action) => {
                 state.loading = true
                 state.isAuthenticated = false
             })
-            .addCase(loginUser.rejected|| registerUser.fulfilled, (state, action) => {
+            .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false
                 state.isAuthenticated = false
                 state.user = null

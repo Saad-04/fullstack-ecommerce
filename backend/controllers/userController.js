@@ -4,23 +4,23 @@ const ErrorHandler = require("../utils/errorHandler.js");
 const sendEmailFunction = require("../utils/sendEmail.js");
 const crypto = require("crypto");
 const response = require("../utils/response.js");
-const cloudinary = require('cloudinary')
+// const cloudinary = require('cloudinary')
 exports.registerUser = async (req, res, next) => {
   try {
-    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar,{
-      folder:"avatars",
-      width:150,
-      crop:"scale"
-    })
+    // const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar,{
+    //   folder:"avatars",
+    //   width:150,
+    //   crop:"scale"
+    // })
     const { name, email, password } = req.body;
     const user = await User.create({
       name,
       email,
       password,
-      avatar: {
-        public_id: myCloud.public_id,
-        url: myCloud.secure_url,
-      },
+      // avatar: {
+      //   public_id: myCloud.public_id,
+      //   url: myCloud.secure_url,
+      // },
     });
     // this is cookie token and response
 

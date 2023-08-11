@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './header.css'
 import { Link } from "react-router-dom"
-import { FaSearch, FaShoppingCart } from 'react-icons/fa'
+// import { FaSearch, FaShoppingCart } from 'react-icons/fa'
 function Header() {
   const [showPriceOptions, setShowPriceOptions] = useState(false);
   const [showCategoryOptions, setShowCategoryOptions] = useState(false);
