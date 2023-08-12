@@ -14,10 +14,7 @@ app.use(cookieParser())
 // app.use(fileUpload())
 app.use(bodyParser.urlencoded({ extended: true }))
 // user all router here 
-app.use(cors({
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-}))
+app.use(cors()); // Enable CORS for all routes
 app.use('/api/v1', product)
 app.use('/api/v1', user)
 app.use('/api/v1', order)

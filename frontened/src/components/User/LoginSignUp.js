@@ -11,6 +11,9 @@ import { useAlert } from 'react-alert'
 import Loader from '.././layouts/loader/Loader.js'
 import { registerUser } from "../../fetchdata/fetchRegister.js";
 
+
+
+
 const LoginSignUp = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -49,8 +52,8 @@ const LoginSignUp = () => {
     useEffect(() => {
         alert.error(error)
 
-        if (isAuthenticated) {
-            navigate('/acount')
+        if (isAuthenticated && !error) {
+            navigate('/profile')
         }
     }, [dispatch, alert, error, isAuthenticated, navigate])
     // login function start here 
@@ -58,6 +61,7 @@ const LoginSignUp = () => {
         e.preventDefault()
         // alert(`this is ${loginEmail} and this is ${loginPassword}`)
         dispatch(loginUser({ loginEmail, loginPassword }))
+
     }
     // here user register form 
     const registerSubmit = (e) => {
