@@ -12,15 +12,17 @@ exports.registerUser = async (req, res, next) => {
     //   width:150,
     //   crop:"scale"
     // })
-    const { name, email, password } = req.body;
+    // {
+      
+      // public_id: myCloud.public_id,
+      // url: myCloud.secure_url,
+    // },
+    const { name, email, password,avatar } = req.body;
     const user = await User.create({
       name,
       email,
       password,
-      // avatar: {
-      //   public_id: myCloud.public_id,
-      //   url: myCloud.secure_url,
-      // },
+      avatar
     });
     // this is cookie token and response
 

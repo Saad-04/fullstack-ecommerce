@@ -73,7 +73,7 @@ const LoginSignUp = () => {
         myForm.set("email", email)
         myForm.set("password", password)
         // alert(`${name}${email}${password}`)
-        dispatch(registerUser({ myForm }))
+        dispatch(registerUser(myForm))
     }
     const registerDataChange = (e) => {
         // if (e.target.name === 'avatar') {
