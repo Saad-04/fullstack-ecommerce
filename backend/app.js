@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // user all router here 
 app.use(cors()); // Enable CORS for all routes
 app.use('/api/v1', product)
-app.use('/api/v1', user)
+app.use('/api/v1', cors(), user)
 app.use('/api/v1', order)
 app.use(errorMiddleware)//this errorMiddleware function take 
 //one argument this (new ErrorHandler(err.message, 404))

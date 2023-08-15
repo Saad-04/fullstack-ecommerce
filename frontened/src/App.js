@@ -9,9 +9,11 @@ import './index.css'
 import ProductDetail from "./components/products/ProductDetail.js";
 import Products from './components/products/Products.js';
 import Search from './components/products/Search.js';
-import LoginSignUp from "./components/User/LoginSignUp.js";
+import Login from "./components/User/Login.js";
+import Register from "./components/User/Register.js";
 import { useSelector } from "react-redux";
 import UserOptions from './components/layouts/header/UserOptions.js'
+import Taillog from "./components/User/Taillog.js";
 
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.users.user)
@@ -32,7 +34,9 @@ function App() {
         <Route exact path="/product/detail/:id" element={<ProductDetail />} />
         <Route exact path="/products" element={<Products />} />
         <Route exact path="/products/:keyword" element={<Products />} />
-        <Route exact path="/loginSignUp" element={<LoginSignUp />} />
+        <Route exact path="/profile" element={''} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
 
         <Route path="/search" element={<Search />} />
 

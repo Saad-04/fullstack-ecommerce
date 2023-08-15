@@ -5,8 +5,8 @@ const router = express.Router();
 const multer = require('multer');
 const upload = multer()
 
-router.route('/register').post(registerUser);
-router.route('/login').post(upload.single('file'), loginUser);
+router.route('/register').post(upload.single('file'), registerUser);
+router.route('/login').post(loginUser);
 router.route('/password/forgot').post(forgotPassword);
 router.route('/password/reset/:token').put(resetPassword);
 router.route('/password/update').put(isAuthenticated, updatePassword);
