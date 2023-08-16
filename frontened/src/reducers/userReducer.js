@@ -49,8 +49,8 @@ const userLoginSlice = createSlice({
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false;
                 state.user = action.payload;
-                state.isAuthenticated = true;
                 state.error = null
+                state.isAuthenticated = true;
             })
             .addCase(loginUser.pending, (state, action) => {
                 state.loading = true;

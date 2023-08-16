@@ -45,7 +45,7 @@ exports.logoutUser = async (req, res, next) => {
 
 exports.loginUser = async (req, res, next) => {
   try {
-    const { email, password } = await req.body;
+    const { email, password } =  req.body;
     console.log(email, password)
     // if email and password empty
     if ((!email && !password)) {

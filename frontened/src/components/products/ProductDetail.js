@@ -11,7 +11,7 @@ import ReviewCard from "./ReviewCard.js";
 import ReactStars from "react-rating-stars-component";
 import { clearErrors } from '../../reducers/detailProduct.js'
 import MetaData from "../layouts/MetaData.js";
-
+import Btn from '../../extra/Btn.js'
 function ProductDetail() {
   const { product, loading, error } = useSelector(
     (state) => state.detailPro.detail
@@ -115,9 +115,9 @@ function ProductDetail() {
               Description : <p>{product.description}</p>
             </div>
 
-            <button onClick={submitReviewToggle} className="submitReview">
-              Submit Review
-            </button>
+            <Btn onClick={submitReviewToggle} title='Submit review' className='submitReview' />
+           
+            
             </div>
             </div>
             <h3 className="reviewsHeading">REVIEWS</h3>

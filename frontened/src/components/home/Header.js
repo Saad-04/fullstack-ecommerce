@@ -1,71 +1,55 @@
-import React, { useState } from 'react'
-import './header.css'
-import { Link } from "react-router-dom"
-// import { FaSearch, FaShoppingCart } from 'react-icons/fa'
-function Header() {
-  const [showPriceOptions, setShowPriceOptions] = useState(false);
-  const [showCategoryOptions, setShowCategoryOptions] = useState(false);
+// import { Sidenav, Nav, Toggle } from 'rsuite';
+// import DashboardIcon from '@rsuite/icons/legacy/Dashboard';
+// import GroupIcon from '@rsuite/icons/legacy/Group';
+// import MagicIcon from '@rsuite/icons/legacy/Magic';
+// import GearCircleIcon from '@rsuite/icons/legacy/GearCircle';
+// import { useState } from 'react';
 
-  const handlePriceHover = () => {
-    setShowPriceOptions(true);
-    setShowCategoryOptions(false);
-  };
-
-  const handleCategoryHover = () => {
-    setShowCategoryOptions(true);
-    setShowPriceOptions(false);
-  };
-  // icons optionns start here 
-  // const options ={
-  // color:'white',
-  // cursor:'pointer'
-  // }
-  // <div className='block-3'>
-  // <Link to='/' ><FaShoppingCart {...options} /></Link>
-  // </div>
-  return (
-    <>
-      <header className="header">
-        <div className="header-container">
-          <Link to='/'><div className="header-item">Home</div></Link>
-
-          <Link to='/products'><div className="header-item">Products</div></Link>
-
-          <Link to='/login'><div className="header-item">contact</div></Link>
-
-          <Link to='/about'><div className="header-item">About</div></Link>
-          <div
-            className="header-item"
-            onMouseEnter={handlePriceHover}
-            onMouseLeave={() => setShowPriceOptions(false)}
-          >
-            Price
-            {showPriceOptions && (
-              <div className="options">
-                <option>d</option>
-                <option>d</option>
-                <option>d</option>
-              </div>
-            )}
-          </div>
-          <div className="header-item"
-            onMouseEnter={handleCategoryHover}
-            onMouseLeave={() => setShowCategoryOptions(false)}
-          >
-            Category
-            {showCategoryOptions && (
-              <div className="options">
-                <option>Fruits</option>
-                <option>Vegetables</option>
-                <option>Meat</option>
-              </div>
-            )}
-          </div>
-        </div>
-
-      </header>
-    </>
-  )
-}
-
-export default Header
+// const App = () => {
+//   const [expanded, setExpanded] = useState(true);
+//   const [activeKey, setActiveKey] = useState('1');
+//   return (
+//     <div style={{ width: 240 }}>
+//       <Toggle
+//         onChange={setExpanded}
+//         checked={expanded}
+//         checkedChildren="Expand"
+//         unCheckedChildren="Collapse"
+//       />
+//       <hr />
+//       <Sidenav expanded={expanded} defaultOpenKeys={['3', '4']}>
+//         <Sidenav.Body>
+//           <Nav activeKey={activeKey} onSelect={setActiveKey}>
+//             <Nav.Item eventKey="1" icon={<DashboardIcon />}>
+//               Dashboard
+//             </Nav.Item>
+//             <Nav.Item eventKey="2" icon={<GroupIcon />}>
+//               User Group
+//             </Nav.Item>
+//             <Nav.Menu placement="rightStart" eventKey="3" title="Advanced" icon={<MagicIcon />}>
+//               <Nav.Item eventKey="3-1">Geo</Nav.Item>
+//               <Nav.Item eventKey="3-2">Devices</Nav.Item>
+//               <Nav.Item eventKey="3-3">Loyalty</Nav.Item>
+//               <Nav.Item eventKey="3-4">Visit Depth</Nav.Item>
+//             </Nav.Menu>
+//             <Nav.Menu
+//               placement="rightStart"
+//               eventKey="4"
+//               title="Settings"
+//               icon={<GearCircleIcon />}
+//             >
+//               <Nav.Item eventKey="4-1">Applications</Nav.Item>
+//               <Nav.Item eventKey="4-2">Channels</Nav.Item>
+//               <Nav.Item eventKey="4-3">Versions</Nav.Item>
+//               <Nav.Menu eventKey="4-5" title="Custom Action">
+//                 <Nav.Item eventKey="4-5-1">Action Name</Nav.Item>
+//                 <Nav.Item eventKey="4-5-2">Action Params</Nav.Item>
+//               </Nav.Menu>
+//             </Nav.Menu>
+//           </Nav>
+//         </Sidenav.Body>
+//         <Sidenav.Toggle expanded={expanded} onToggle={expanded => setExpanded(expanded)} />
+//       </Sidenav>
+//     </div>
+//   );
+// };

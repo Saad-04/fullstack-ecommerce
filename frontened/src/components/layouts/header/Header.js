@@ -1,46 +1,70 @@
-import React from "react";
-import { ReactNavbar } from "overlay-navbar";
-import logo from '../../../images/saad-logo.png'
-function Header() {
-  const options = {
-    burgerColorHover: "#eb4034",
-    logo,
-    logoWidth: "20vmax",
-    navColor1: "white",
-    logoHoverSize: "10px",
-    logoHoverColor: "#eb4034",
-    logoAnimationTime: '0.6',
-    link1AnimationTime: '0.7',
-    link2AnimationTime: '0.8',
-    link3AnimationTime: '0.9',
-    link4AnimationTime: '1',
-    link5AnimationTime: '1.1',
-    link1Text: "Home",
-    link2Text: "Products",
-    link3Text: "Contact",
-    link4Text: "About",
-    link5Text: "search",
-    link1Url: "/",
-    link2Url: "/products",
-    link3Url: "/contact",
-    link4Url: "/about",
-    link5Url: "/search",
 
-    link1Size: "1.3vmax",
-    link1Color: "black",
-    nav1justifyContent: "flex-end",
-    nav2justifyContent: "flex-end",
-    nav3justifyContent: "flex-start",
-    nav4justifyContent: "flex-start",
-    nav5justifyContent: "flex-start",
-    link1ColorHover: "#eb4034",
-    link1Margin: "1vmax",
-    
-  
-  }
-  return (
-    <ReactNavbar {...options} ></ReactNavbar >
-  );
+import React, { useState } from 'react';
+import {
+  AppstoreOutlined,
+  ContainerOutlined,
+  DesktopOutlined,
+  MailOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  PieChartOutlined,
+} from '@ant-design/icons';
+import { Button, Menu } from 'antd';
+function getItem(label, key, icon, children, type) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  };
 }
-
+const items = [
+  getItem('Option 1', '1', <PieChartOutlined />),
+  getItem('Option 2', '2', <DesktopOutlined />),
+  getItem('Option 3', '3', <ContainerOutlined />),
+  getItem('Navigation One', 'sub1', <MailOutlined />, [
+    getItem('Option 5', '5'),
+    getItem('Option 6', '6'),
+    getItem('Option 7', '7'),
+    getItem('Option 8', '8'),
+  ]),
+  getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
+    getItem('Option 9', '9'),
+    getItem('Option 10', '10'),
+    getItem('Submenu', 'sub3', null, [getItem('Option 11', '11'), getItem('Option 12', '12')]),
+  ]),
+];
+const Header = () => {
+  const [collapsed, setCollapsed] = useState(false);
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed);
+  };
+  return (
+    <div
+      style={{
+        width: 256,
+      }}
+    >
+      <Button
+        type="primary"
+        onClick={toggleCollapsed}
+        style={{
+          marginBottom:7,
+          color:"gray"
+        }}
+      >
+        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      </Button>
+      <Menu
+        defaultSelectedKeys={['1']}
+        defaultOpenKeys={['sub1']}
+        mode="inline"
+        theme="light"
+        inlineCollapsed={collapsed}
+        items={items}
+      />
+    </div>
+  );
+};
 export default Header;

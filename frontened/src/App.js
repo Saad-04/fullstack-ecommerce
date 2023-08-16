@@ -13,10 +13,10 @@ import Login from "./components/User/Login.js";
 import Register from "./components/User/Register.js";
 import { useSelector } from "react-redux";
 import UserOptions from './components/layouts/header/UserOptions.js'
-import Taillog from "./components/User/Taillog.js";
-
+import NotFound from './components/layouts/NotFound.js'
+import Profile from './components/User/Profile.js'
 function App() {
-  const { user, isAuthenticated } = useSelector((state) => state.users.user)
+  const { user, isAuthenticated } = useSelector((state) => state.users)
   useEffect(() => {
     webFont.load({
       google: {
@@ -27,19 +27,18 @@ function App() {
 
   return (
     <Router>
-      <Header />
+     <Header/>
       {isAuthenticated && <UserOptions user={user} />}
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/product/detail/:id" element={<ProductDetail />} />
         <Route exact path="/products" element={<Products />} />
         <Route exact path="/products/:keyword" element={<Products />} />
-        <Route exact path="/profile" element={''} />
+        <Route exact path="/profile" element={<Profile/>} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
-
         <Route path="/search" element={<Search />} />
-
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </Router>

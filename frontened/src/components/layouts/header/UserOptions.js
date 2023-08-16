@@ -1,43 +1,52 @@
 import React, { Fragment } from 'react'
 import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import PrintIcon from '@mui/icons-material/Print';
-import ShareIcon from '@mui/icons-material/Share';
-
+import ExitToApp from '@mui/icons-material/ExitToApp';
+import ListAlt from '@mui/icons-material/ListAlt';
+import Person from '@mui/icons-material/Person';
 function UserOptions({ user }) {
-  //
-  const actions = [
-    { icon: <FileCopyIcon />, name: 'Copy' },
-    { icon: <SaveIcon />, name: 'Save' },
-    { icon: <PrintIcon />, name: 'Print' },
-    { icon: <ShareIcon />, name: 'Share' },
-  ];
 
-  return (
-    <Fragment>
-      <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+const order = () => {
+
+}
+const account = () => {
+
+}
+const logout = () => {
+
+}
+const actions = [
+  { icon: <ListAlt />, name: 'Copy', func: order },
+  { icon: <Person />, name: 'profile', func: account },
+  { icon: <ExitToApp />, name: 'logout', func: logout }
+];
+
+// 
+return (
+  <Fragment>
+    
+  <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1,position:'absolute' }}>
         <SpeedDial
           ariaLabel="SpeedDial basic example"
-          sx={{ position: 'absolute', bottom: 16, right: 16 }}
+          sx={{ position: 'absolute' ,right:0,bottom:0}}
           // icon={<SpeedDialIcon/>}
-          icon={<img src={user.avatar.url} alt='user image' />}
+          icon={<img style={{fontSize:"fill",height:'100%',width:'100%'}} src={user?.avatar?.url} alt='img' />}
         >
           {actions.map((action) => (
             <SpeedDialAction
               key={action.name}
               icon={action.icon}
+              onClick={action.func}
               tooltipTitle={action.name}
             />
-          ))}
+          ))};
+  
         </SpeedDial>
       </Box>
-    </Fragment>
+  </Fragment>
 
-  )
+)
 }
 
 export default UserOptions

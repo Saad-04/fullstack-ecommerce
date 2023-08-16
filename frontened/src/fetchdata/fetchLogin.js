@@ -11,7 +11,7 @@ export const loginUser = createAsyncThunk("user/login", async (info, thunkAPI) =
             { email: info.loginEmail, password: info.loginPassword },
             config
         );
-        return data.user
+        return await data.user
     } catch (error) {
         return error.response.data.message
     }
