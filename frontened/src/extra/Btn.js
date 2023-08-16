@@ -9,7 +9,7 @@ const Btn = ({title}) => (
       borderRadius:'6px',
       marginTop:'5px',
       color:'white',
-      backgroundColor:'purple'
+      backgroundColor:'purple',
     }}
     size="large"
   >
