@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./home.css";
-import { VscBracketDot } from "react-icons/vsc";
+import "./header.css";
 import ProductCard from "./ProductCard.js";
 import { MetaData } from "../layouts/MetaData.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,7 +38,7 @@ function Home() {
 
             <a href="#container">
               <button>
-                Scroll <VscBracketDot />
+                Scroll 
               </button>
             </a>
           </div>

@@ -10,7 +10,6 @@ import "./product.css";
 import { useParams } from "react-router-dom";
 import Pagination from 'react-js-pagination'
 import { FaStar } from 'react-icons/fa'
-import Header from "../home/Header.js";
 // import Slider from '@mui/material/Slider';
 // import Box from '@mui/material/Box';
 
@@ -50,14 +49,6 @@ function Products() {
   const setCurrentPageNo = (pageNumber) => {//this is use for pagination not slider 
     setCurrentPage(pageNumber);
   };
-
-
-  // slider area start here 
-
-
-  // function valuetext(value) {
-  //   return `${value}°C`;
-  // }
   const priceChange = (e) => {
     let val = e.target.value.split('-')
 
@@ -105,7 +96,7 @@ function Products() {
   }
   return (
     <Fragment>
-    <Header/>
+
       {loading ? (
         <Loader />
       ) : (
@@ -122,8 +113,6 @@ function Products() {
             }
 
           </div>
-
-
           <div className="filterBox">
             <p for='price' >price</p>
             <select onChange={priceChange} >
@@ -138,15 +127,13 @@ function Products() {
               })}
             </select>
             <p for='ratings' >select rating</p>
-            
 
-              {[...Array(5)].map((e, i) => {
-                let starValue = i + 1;
-                return <FaStar onClick={() => handleRating(starValue)} key={i} {...fastarOptions} className="fastar" />
-              })} 
+
+            {[...Array(5)].map((e, i) => {
+              let starValue = i + 1;
+              return <FaStar onClick={() => handleRating(starValue)} key={i} {...fastarOptions} className="fastar" />
+            })}
           </div>
-
-
 
           {resultPerPage < productCount &&
             <div className="paginationBox">

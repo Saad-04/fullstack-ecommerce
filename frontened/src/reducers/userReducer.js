@@ -1,26 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser } from '../fetchdata/fetchLogin.js'
+import { loginUser, logoutUser } from '../fetchdata/fetchLogin.js'
 import { registerUser } from "../fetchdata/fetchRegister.js";
 // import { registerUser } from '../fetchdata/fetchRegister.js'
 const initialState = {
     user: {},
     loading: false,
     error: null,
-    isAuthenticated: false
+    isAuthenticated: null
 
 };
 const userLoginSlice = createSlice({
     name: "users",
     initialState,
     reducers: {
-        setLoginData: (state, action) => {
-            state.user = action.payload;
-
-        },
-        resetLoginState: (state) => {
-            state.user = null;
-            state.error = null;
-        },
         clearErrors: (state, action) => {
             state.loading = false;
             state.error = null;
@@ -60,9 +52,19 @@ const userLoginSlice = createSlice({
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
                 state.isAuthenticated = false;
+                state.user = action.payload
+            })
+            .addCase(logoutUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.isAuthenticated = false;
                 state.user = null;
+            })
+            .addCase(logoutUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload
+                return state
             });
     },
 });
-export const { clearErrors, setLoginData, resetLoginState } = userLoginSlice.actions
+export const { clearErrors } = userLoginSlice.actions
 export default userLoginSlice.reducer;

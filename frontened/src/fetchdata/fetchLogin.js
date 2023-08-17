@@ -15,5 +15,15 @@ export const loginUser = createAsyncThunk("user/login", async (info, thunkAPI) =
     } catch (error) {
         return error.response.data.message
     }
+}
+)
+export const logoutUser = createAsyncThunk("user/logout", async (thunkAPI) => {
+    try {
+        await axios.post(`/api/v1/logout`);
 
-})
+    } catch (error) {
+        return error.response.data.message
+    }
+}
+)
+

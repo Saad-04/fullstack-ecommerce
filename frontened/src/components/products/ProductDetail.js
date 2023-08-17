@@ -47,8 +47,6 @@ function ProductDetail() {
   const submitReviewToggle = () => {
 
   }
-
-
   let options = {
     edit: false,
     color: "lightGrey",
