@@ -1,13 +1,16 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerUser } from '../../fetchdata/fetchRegister'
-
+import { useAlert } from 'react-alert'
 import "./LoginSignUp.css";
-
+import { clearErrors } from '../../reducers/userReducer.js'
 function Register() {
-    const { error } = useSelector((state) => state.users)
+    const { error, isAuthenticated } = useSelector((state) => state.users)
     const dispatch = useDispatch()
-    let [avatar, setAvatar] = useState('')//this for user password 
+    const navigate = useNavigate()
+    const alert = useAlert()
+    let [avatar, setAvatar] = useState('/Profile.png')//this for user password 
     let [avatarPreview, setAvatarPreview] = useState('/Profile.png')//this for user password 
     const [usernow, setUser] = useState({
         name: "",
@@ -18,35 +21,47 @@ function Register() {
     const { name, email, password } = usernow
 
     const registerSubmit = async (e) => {
+
         e.preventDefault()
+        console.log('this is  ',avatar)
         let myForm = new FormData()//this is built in functio in react.js
         // myForm.set("avater", avatar)
-        myForm.set("name", name)
-        myForm.set("email", email)
-        myForm.set("password", password)
-        myForm.set("avatar", avatar)
+        myForm.set("name", name);
+        myForm.set("email", email);
+        myForm.set("password", password);
+        myForm.set("avatar", avatar);
         // alert(`${name}${email}${password}`)
-        dispatch(registerUser(myForm))
+        dispatch(registerUser(myForm));
+        if (error) { alert.error(error) }
+
     }
     const registerDataChange = (e) => {
         if (e.target.name === 'avatar') {
             const reader = new FileReader();
 
             reader.onload = () => {
-
                 if (reader.readyState === 2) {
                     setAvatarPreview(reader.result);
                     setAvatar(reader.result);
                 }
             };
-            console.log(e)
-            reader.readAsDataURL(e.target.files[0])
+            reader.readAsDataURL(e.target.files[0]);
 
         } else {
-            setUser({ ...usernow, [e.target.name]: [e.target.value] })
+            setUser({ ...usernow, [e.target.name]: [e.target.value] });
 
         }
     }
+    useEffect(() => {
+        if (error) {
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+
+        if (isAuthenticated) {
+            navigate('/products');
+        }
+    }, [dispatch, error, alert, isAuthenticated, navigate]);
     return (
 
 

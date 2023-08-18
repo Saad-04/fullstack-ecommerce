@@ -54,7 +54,7 @@ const Profile = () => {
                 </h4>,
               ]}
             >
-              <List.Item.Meta avatar={<Avatar src={user.avatar.url && user.avatar.url} />}
+              <List.Item.Meta avatar={<Avatar src={user?.avatar?.url ? user.avatar.url : ''} />}
                 title={<h3>{user?.name}</h3>}
                 description="------"
               />

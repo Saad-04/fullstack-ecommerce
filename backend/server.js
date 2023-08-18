@@ -1,8 +1,7 @@
 const { config } = require('dotenv')
 const app = require('./app')
 const database = require('./config/dataBase')
-const cloudinary = require('cloudinary')
-
+const cloudinary = require('cloudinary').v2;
 // handled uncaughed promise rejections 
 // process.on("uncaughtException",(err)=>{
 //     console.log(`Error: ${err.message}`)
@@ -15,11 +14,12 @@ config({ path: 'backend/config/config.env' })
 
 // connect to database 
 // connect to cloud 
+'CLOUDINARY_URL=cloudinary://293265826197626:7Xt2zHBmEXx83YVTxf7b5vxnBBQ@ddcchehkv'
 cloudinary.config({
-    cloud_name: process.env.ClOUDINARY_NAME,
-    api_key: process.env.ClOUDINARY_API_KEY,
-    api_secret: process.env.ClOUDINARY_API_SECRETE,
-})
+    cloud_name: 'ddcchehkv',
+    api_key: '293265826197626',
+    api_secret: '7Xt2zHBmEXx83YVTxf7b5vxnBBQ'
+});
 database()
 // connect to server 
 const server = app.listen(process.env.PORT, () => {

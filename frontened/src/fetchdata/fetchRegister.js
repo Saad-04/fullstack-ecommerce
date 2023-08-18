@@ -7,7 +7,7 @@ export const registerUser = createAsyncThunk("register", async ( myForm,thunkAPI
         const config = { headers: { "Content-Type": "multipart/form-data" } };
 
         const { data } = await axios.post(`/api/v1/register`, myForm, config);
-        return data;
+        return data.user;
     } catch (error) {
         console.log(error.message)
         return error.message;
