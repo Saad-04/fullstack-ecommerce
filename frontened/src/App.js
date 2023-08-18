@@ -15,6 +15,7 @@ import UserOptions from './components/layouts/header/UserOptions.js'
 import NotFound from './components/layouts/NotFound.js'
 import Profile from './components/User/Profile.js'
 import Products from "./components/products/Products.js";
+import ProtectedRout from "./components/Routes/ProtectedRout.js";
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.users)
   useEffect(() => {
@@ -37,6 +38,7 @@ function App() {
         <Route exact path="/profile" element={<Profile/>} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/profile/update" element={<Register />} />
         <Route path="/search" element={<Search />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

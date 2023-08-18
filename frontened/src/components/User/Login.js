@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import MailOutlineIcon from "@material-ui/icons/MailOutline";
 // import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { loginUser } from "../../fetchdata/fetchLogin.js";
@@ -12,6 +12,7 @@ import Loader from "../layouts/loader/Loader.js";
 function Login() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [val,setVal] = useState()
     const { loading, error, isAuthenticated, user } = useSelector((state) => state.users)
     const alert = useAlert()
     const [loginEmail, setLoginEmail] = useState('')//this for user email 
@@ -49,14 +50,9 @@ function Login() {
                                 Get started today
                             </h1>
 
-                            <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati sunt
-                                dolores deleniti inventore quaerat mollitia?
-                            </p>
-
                             <form
                                 action=""
-                                className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8" onSubmit={loginSubmit}
+                                className="mb-0 mt-5 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8" onSubmit={loginSubmit}
                             >
                                 <p className="text-center text-lg font-medium">Sign in to your account</p>
 
@@ -66,7 +62,7 @@ function Login() {
                                     <div className="relative">
                                         <input
                                             type="email"
-                                            className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                            className="w-full rounded-lg border-gray-200 p-3 pe-12 text-sm shadow-sm"
                                             placeholder="Enter email"
                                             autoComplete="@gmail.com"
                                             value={loginEmail}
@@ -98,7 +94,7 @@ function Login() {
                                     <div className="relative">
                                         <input
                                             type="password"
-                                            className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                            className="w-full rounded-lg border-gray-200 p-3 pe-12 text-sm shadow-sm"
                                             placeholder="Enter password"
                                             name="password"
                                             value={loginPassword}
@@ -139,13 +135,16 @@ function Login() {
 
                                 <p className="text-center text-sm text-gray-500">
                                     No account?
-                                    <a className="underline" href="">Sign up</a>
+                                    <Link to='/register'  ><span className="underline text-blue-600 cursor-pointer pl-1" >Sign up</span></Link>
                                 </p>
                             </form>
                         </div>
                     </div>
                 </Fragment>}
-
+<input type="file" onChange={(e)=>{
+    setVal(e.target.value)
+}}  />
+<img src={val} />
         </Fragment>
     )
 }

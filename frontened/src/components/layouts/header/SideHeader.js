@@ -1,6 +1,8 @@
 import { CgMoon } from 'react-icons/cg'
 import { FaBlenderPhone, FaSistrix, FaExternalLinkAlt, FaUserCheck } from 'react-icons/fa'
 import React, { useState } from 'react';
+import { Avatar } from 'antd';
+
 import {
   AppstoreOutlined,
   ContainerOutlined,
@@ -43,12 +45,19 @@ const Header = () => {
   closeNav = () => {
     setpositionSet('-400px');
   }
+
+
   const items = [
-    getItem(<p onClick={changeBg} >{mode}</p>, '1', <CgMoon />),//1
-    ((isAuthenticated) ? getItem(<Link to='/profile' onClick={closeNav} >Profile</Link>, '2', <FaSistrix color='hsl(214, 84%, 59%)' />) : ''),//
-    ((!isAuthenticated) ? getItem(<Link to='/login' onClick={closeNav} >Login</Link>, '3', <FaUserCheck color='lightgreen' />) : ('')),//2
-    getItem(<Link to='/products' onClick={closeNav} >Products</Link>, '4', <FaBlenderPhone color='orangered' />),//3
-    getItem(<Link to='/search' onClick={closeNav} >Search</Link>, '5', <FaSistrix color='cyan' />),//4
+    getItem(<p onClick={changeBg} >{mode}</p>, '1', <CgMoon />),
+    //1
+    ((isAuthenticated) ? getItem(<Link to='/profile' onClick={closeNav} >Profile</Link>, '2', (user?.avatar?.url ? <Avatar src={user?.avatar?.url} /> : <FaSistrix color='hsl(214, 84%, 59%)' />)) : ''),
+    //
+    ((!isAuthenticated) ? getItem(<Link to='/login' onClick={closeNav} >Login</Link>, '3', <FaUserCheck color='lightgreen' />) : ('')),
+    //2
+    getItem(<Link to='/products' onClick={closeNav} >Products</Link>, '4', <FaBlenderPhone color='orangered' />),
+    //3
+    getItem(<Link to='/search' onClick={closeNav} >Search</Link>, '5', <FaSistrix color='cyan' />),
+    //4
     getItem('Option 3', '6', <ContainerOutlined />),
     //this is admin section 
     ((isAuthenticated && user.role === 'admin') ? getItem('Admin Roles', 'sub1', <MailOutlined />, [

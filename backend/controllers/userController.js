@@ -7,21 +7,21 @@ const response = require("../utils/response.js");
 // const cloudinary = require('cloudinary')
 exports.registerUser = async (req, res, next) => {
   try {
-    // const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar,{
-    //   folder:"avatars",
-    //   width:150,
-    //   crop:"scale"
-    // })
-    // {
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: "avatars",
+      width: 150,
+      crop: "scale"
+    })
 
-    // public_id: myCloud.public_id,
-    // url: myCloud.secure_url,
-    // },
     const { name, email, password } = req.body;
     const user = await User.create({
       name,
       email,
-      password
+      password,
+      avatar: {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      },
     });
     // this is cookie token and response
 
@@ -45,7 +45,7 @@ exports.logoutUser = async (req, res, next) => {
 
 exports.loginUser = async (req, res, next) => {
   try {
-    const { email, password } =  req.body;
+    const { email, password } = req.body;
     console.log(email, password)
     // if email and password empty
     if ((!email && !password)) {
