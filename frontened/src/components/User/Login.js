@@ -1,20 +1,17 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import MailOutlineIcon from "@material-ui/icons/MailOutline";
-// import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { loginUser } from "../../fetchdata/fetchLogin.js";
 import { useDispatch, useSelector } from 'react-redux';
-// import { clearErrors } from '../../reducers/userReducer.js'
 import { useAlert } from 'react-alert';
 import Loader from "../layouts/loader/Loader.js";
-// import Loader from '.././layouts/loader/Loader.js';
 
 function Login() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [val,setVal] = useState()
+    
     const { loading, error, isAuthenticated, user } = useSelector((state) => state.users)
     const alert = useAlert()
+    // const [val, setVal] = useState('')//this for user email 
     const [loginEmail, setLoginEmail] = useState('')//this for user email 
     const [loginPassword, setLoginPassword] = useState('')//this for user password 
 
@@ -141,12 +138,11 @@ function Login() {
                         </div>
                     </div>
                 </Fragment>}
-<input type="file" onChange={(e)=>{
-    setVal(e.target.value)
-}}  />
-<img src={val} />
-        </Fragment>
-    )
-}
+                </Fragment>
+                )
+            }
+            // <input type="file" onChange={(e) => {
+            //     setVal(e.target.value)
+            // }} />
 
 export default Login

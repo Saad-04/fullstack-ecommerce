@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Col, Divider, Drawer, List, Row } from 'antd';
 import { useSelector } from 'react-redux';
-import Loader from '../layouts/loader/Loader';
+import Loader from '../layouts/loader/Loader.js';
+import { useNavigate } from 'react-router-dom';
+import { useAlert } from 'react-alert';
 // here is one line discription components 
 const DescriptionItem = ({ title, content }) => (
   <div className="site-description-item-profile-wrapper">
@@ -12,8 +14,10 @@ const DescriptionItem = ({ title, content }) => (
 
 // main app start from here 
 const Profile = () => {
-  const { user, loading } = useSelector((state) => state.users)
+  const { user, loading, isAuthenticated } = useSelector((state) => state.users)
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate()
+  const alert = useAlert()
 
   // const userData = {
   //   id: user?._id,
@@ -27,6 +31,12 @@ const Profile = () => {
   // const storedUserDataJSON = localStorage.getItem('userData');
   // const storedUserData = JSON.parse(storedUserDataJSON);
   // console.log(storedUserData);
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login')
+      alert.error('please login first 😯')
+    }
+  }, [loading,alert])
 
   const showDrawer = () => {
     setOpen(true);

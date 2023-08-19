@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const registerUser = createAsyncThunk("register", async ( myForm,thunkAPI ) => {
+export const registerUser = createAsyncThunk("register", async (myForm, thunkAPI) => {
     try {
 
         const config = { headers: { "Content-Type": "multipart/form-data" } };
