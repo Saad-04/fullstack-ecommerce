@@ -15,14 +15,21 @@ import Register from "./components/User/Register.js";
 import NotFound from './components/layouts/NotFound.js'
 import Profile from './components/User/Profile.js'
 import Products from "./components/products/Products.js";
+import ProfileUpdate from "./components/User/ProfileUpdate.js";
+import { store } from './store.js'
+import { userProfile } from "./fetchdata/fetchProfile.js";
+// import {userProfile} from './'
+// import { useSelector } from "react-redux";
+
 function App() {
-  // const { user, isAuthenticated } = useSelector((state) => state.users)
   useEffect(() => {
     webFont.load({
       google: {
         families: ["Roboto", "Droid Sans", "chilanka"],
       },
     });
+
+    store.dispatch(userProfile())
   }, []);
 
   // {isAuthenticated && <UserOptions user={user} />}
@@ -35,6 +42,7 @@ function App() {
         <Route exact path="/Products" element={<Products />} />
         <Route exact path="/Products/:keyword" element={<Products />} />
         <Route exact path="/profile" element={<Profile />} />
+        <Route exact path="/profile/update" element={<ProfileUpdate />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route path="/search" element={<Search />} />

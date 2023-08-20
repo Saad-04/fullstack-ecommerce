@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Avatar, Col, Divider, Drawer, List, Row } from 'antd';
 import { useSelector } from 'react-redux';
 import Loader from '../layouts/loader/Loader.js';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAlert } from 'react-alert';
 // here is one line discription components 
 const DescriptionItem = ({ title, content }) => (
@@ -36,7 +36,7 @@ const Profile = () => {
       navigate('/login')
       alert.error('please login first 😯')
     }
-  }, [loading,alert])
+  }, [isAuthenticated, alert])
 
   const showDrawer = () => {
     setOpen(true);
@@ -45,7 +45,7 @@ const Profile = () => {
     setOpen(false);
   };
   return (
-    <>
+    <Fragment>
       {loading ? <Loader /> : <>
         <List
           dataSource={[
@@ -144,6 +144,9 @@ const Profile = () => {
           <p className="site-description-item-profile-p">Contacts</p>
           <Row>
             <Col span={12}>
+              <DescriptionItem title="Update-Profile" content={<Link to='/profile/update' >Click Here..</Link>} />
+            </Col>
+            <Col span={12}>
               <DescriptionItem title="Email" content={<a href="mailto:asaad4674@gmail.com">asaad4674@gmail.com</a>} />
             </Col>
             <Col span={12}>
@@ -164,7 +167,7 @@ const Profile = () => {
           </Row>
         </Drawer>
       </>}
-    </>
+    </Fragment>
   );
 };
 export default Profile;

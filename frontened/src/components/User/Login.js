@@ -8,7 +8,7 @@ import Loader from "../layouts/loader/Loader.js";
 function Login() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    
+
     const { loading, error, isAuthenticated, user } = useSelector((state) => state.users)
     const alert = useAlert()
     // const [val, setVal] = useState('')//this for user email 
@@ -27,6 +27,7 @@ function Login() {
     // login function start here 
     const loginSubmit = (e) => {
         e.preventDefault()
+        navigate('/')
         if (!loginEmail || !loginPassword) {
             alert.error("Please enter both email and password.");
             return; // Exit the function if either field is empty
@@ -138,11 +139,11 @@ function Login() {
                         </div>
                     </div>
                 </Fragment>}
-                </Fragment>
-                )
-            }
-            // <input type="file" onChange={(e) => {
-            //     setVal(e.target.value)
-            // }} />
+        </Fragment>
+    )
+}
+// <input type="file" onChange={(e) => {
+//     setVal(e.target.value)
+// }} />
 
 export default Login

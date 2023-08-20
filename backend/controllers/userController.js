@@ -146,7 +146,11 @@ exports.getUserDetail = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
 
-    response(res, 200, true, user);
+    res.status(200).json({
+      success: true,
+      user
+    });
+   
   } catch (error) {
     next(new ErrorHandler(error.message, 404));
   }
