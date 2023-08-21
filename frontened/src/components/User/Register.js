@@ -12,18 +12,17 @@ function Register() {
     const alert = useAlert()
     let [avatar, setAvatar] = useState('/Profile.png')//this for user password 
     let [avatarPreview, setAvatarPreview] = useState('/Profile.png')//this for user password 
-    const [usernow, setUser] = useState({
+    const [userState, setUser] = useState({
         name: "",
         email: "",
         password: "",
     })
 
-    const { name, email, password } = usernow
+    const { name, email, password } = userState
 
     const registerSubmit = async (e) => {
 
         e.preventDefault()
-        console.log('this is  ',avatar)
         let myForm = new FormData()//this is built in functio in react.js
         // myForm.set("avater", avatar)
         myForm.set("name", name);
@@ -48,7 +47,7 @@ function Register() {
             reader.readAsDataURL(e.target.files[0]);
 
         } else {
-            setUser({ ...usernow, [e.target.name]: [e.target.value] });
+            setUser({ ...userState, [e.target.name]: [e.target.value] });
 
         }
     }

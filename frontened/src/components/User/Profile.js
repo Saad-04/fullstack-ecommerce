@@ -19,18 +19,6 @@ const Profile = () => {
   const navigate = useNavigate()
   const alert = useAlert()
 
-  // const userData = {
-  //   id: user?._id,
-  //   name: user?.name,
-  //   email: user?.email,
-  //   avatar: user?.avatar?.url,
-  //   role: user?.role
-  // };
-  // const userDataJSON = JSON.stringify(userData);
-  // localStorage.setItem('userData', userDataJSON);
-  // const storedUserDataJSON = localStorage.getItem('userData');
-  // const storedUserData = JSON.parse(storedUserDataJSON);
-  // console.log(storedUserData);
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/login')

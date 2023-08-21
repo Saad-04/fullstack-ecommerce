@@ -150,7 +150,7 @@ exports.getUserDetail = async (req, res, next) => {
       success: true,
       user
     });
-   
+
   } catch (error) {
     next(new ErrorHandler(error.message, 404));
   }
@@ -198,9 +198,14 @@ exports.updatePassword = async (req, res, next) => {
 // get user profile name and email  detail
 exports.updateProfile = async (req, res, next) => {
   try {
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar)
     const options = {
       name: req.body.name,
       email: req.body.email,
+      avatar: {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      },
     };
     // update avater later
 

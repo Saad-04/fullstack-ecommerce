@@ -16,20 +16,22 @@ import NotFound from './components/layouts/NotFound.js'
 import Profile from './components/User/Profile.js'
 import Products from "./components/products/Products.js";
 import ProfileUpdate from "./components/User/ProfileUpdate.js";
-import { store } from './store.js'
 import { userProfile } from "./fetchdata/fetchProfile.js";
-// import {userProfile} from './'
-// import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
+  const { isAuthenticated } = useSelector(state => state.users)
+  const dispatch = useDispatch()
   useEffect(() => {
     webFont.load({
       google: {
         families: ["Roboto", "Droid Sans", "chilanka"],
       },
     });
+    if (isAuthenticated) {
+      dispatch(userProfile())
 
-    store.dispatch(userProfile())
+    }
   }, []);
 
   // {isAuthenticated && <UserOptions user={user} />}

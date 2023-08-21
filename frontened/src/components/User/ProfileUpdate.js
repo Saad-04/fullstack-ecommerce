@@ -5,35 +5,41 @@ import { registerUser } from '../../fetchdata/fetchRegister'
 import { useAlert } from 'react-alert'
 import "./LoginSignUp.css";
 import { clearErrors } from '../../reducers/userReducer.js'
-import { profileUpdate } from '../../fetchdata/fetchUpdateProfile';
+import { fetchProfileUpdate } from '../../fetchdata/fetchUpdateProfile';
 import MetaData from '../layouts/MetaData.js'
+import { userProfile } from '../../fetchdata/fetchProfile';
+
 function ProfileUpdate() {
     const { user } = useSelector((state) => state.users)
     const { error, loading, isUpdated } = useSelector((state) => state.profileUpdate)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const alert = useAlert()
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
     let [avatar, setAvatar] = useState('/Profile.png')//this for user password 
     let [avatarPreview, setAvatarPreview] = useState('/Profile.png')//this for user password 
+    let [userState, setUser] = useState({
+        name: "",
+        email: ""
+    })
 
+    let { name, email } = userState
     const registerSubmit = async (e) => {
-
         e.preventDefault()
-        console.log('this is  ', avatar)
         let myForm = new FormData()//this is built in functio in react.js
         // myForm.set("avater", avatar)
         myForm.set("name", name);
         myForm.set("email", email);
         myForm.set("avatar", avatar);
         // alert(`${name}${email}${password}`)
-        dispatch(profileUpdate(myForm));
+        dispatch(fetchProfileUpdate(myForm));
         if (error) { alert.error(error) }
+        if (isUpdated) {
+            navigate('/profile')
+        }
 
     }
     const registerDataChange = (e) => {
-        
+        if (e.target.name === 'avatar') {
             const reader = new FileReader();
 
             reader.onload = () => {
@@ -44,12 +50,17 @@ function ProfileUpdate() {
             };
             reader.readAsDataURL(e.target.files[0]);
 
-        
+        } else {
+            setUser({ ...userState, [e.target.name]: [e.target.value] });
+
+        }
     }
     useEffect(() => {
         if (user) {
-            setName(user.name);
-            setEmail(user.email);
+            setUser({
+                name: user.name,
+                email: user.email
+            })
             setAvatarPreview(user.avatar.url);
         }
         if (error) {
@@ -58,15 +69,15 @@ function ProfileUpdate() {
         }
         if (isUpdated) {
             alert.success("Profile Updated Successfully");
-            // dispatch(loadUser());
+            dispatch(userProfile());
 
-            navigate("/account");
+            navigate("/profile");
         }
 
-    }, [dispatch, error, alert, navigate]);
+    }, [dispatch, error, alert, navigate, user, isUpdated]);
     return (
         <Fragment>
-        <MetaData title='update-profile' />
+            <MetaData title='update-profile' />
             <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
                 <div className="mx-auto max-w-lg">
                     <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
@@ -87,8 +98,8 @@ function ProfileUpdate() {
                                     className="w-full rounded-lg border-gray-200 p-3 pe-12 text-sm shadow-sm"
                                     type="text"
                                     placeholder="Name"
-                                    required
                                     name="name"
+
                                     value={name}
                                     onChange={registerDataChange}
                                 />
@@ -120,7 +131,7 @@ function ProfileUpdate() {
                                     className="w-full rounded-lg border-gray-200 p-3 pe-12 text-sm shadow-sm"
                                     type="email"
                                     placeholder="Email"
-                                    required
+
                                     name="email"
                                     value={email}
                                     onChange={registerDataChange}

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { profileUpdate } from "../fetchdata/fetchUpdateProfile.js";
+import { fetchProfileUpdate } from "../fetchdata/fetchUpdateProfile.js";
 const initialState = {
     
     loading: false,
@@ -25,16 +25,16 @@ const profileUpdateSlice = createSlice({
     extraReducers: (builder) => {
 
         builder
-            .addCase(profileUpdate.pending, (state, action) => {
+            .addCase(fetchProfileUpdate.pending, (state, action) => {
                 state.loading = true;
                 return state
             })
-            .addCase(profileUpdate.fulfilled, (state, action) => {
+            .addCase(fetchProfileUpdate.fulfilled, (state, action) => {
                 state.loading = false;
                 state.isUpdated = action.payload;
                 return state
             })
-            .addCase(profileUpdate.rejected, (state, action) => {
+            .addCase(fetchProfileUpdate.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload
                 return state
