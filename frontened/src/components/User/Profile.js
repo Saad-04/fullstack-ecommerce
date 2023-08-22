@@ -24,7 +24,7 @@ const Profile = () => {
       navigate('/login')
       alert.error('please login first 😯')
     }
-  }, [isAuthenticated, alert])
+  }, [isAuthenticated, alert, navigate])
 
   const showDrawer = () => {
     setOpen(true);

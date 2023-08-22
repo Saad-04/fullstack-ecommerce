@@ -17,7 +17,7 @@ function Products() {
 
 
   let [price, setPrice] = useState([0, 30000])
-  let [category, setcategory] = useState('')
+  let [category, setcategory] = useState('all')
   let [rating, setRating] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)//this is for pagination
   const dispatch = useDispatch();

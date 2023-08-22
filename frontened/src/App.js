@@ -20,7 +20,7 @@ import { userProfile } from "./fetchdata/fetchProfile.js";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
-  const { isAuthenticated } = useSelector(state => state.users)
+  const { isAuthenticated, user } = useSelector(state => state.users)
   const dispatch = useDispatch()
   useEffect(() => {
     webFont.load({
@@ -30,9 +30,8 @@ function App() {
     });
     if (isAuthenticated) {
       dispatch(userProfile())
-
     }
-  }, []);
+  }, [dispatch]);
 
   // {isAuthenticated && <UserOptions user={user} />}
   return (

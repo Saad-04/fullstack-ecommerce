@@ -1,17 +1,17 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { registerUser } from '../../fetchdata/fetchRegister'
 import { useAlert } from 'react-alert'
 import "./LoginSignUp.css";
 import { clearErrors } from '../../reducers/userReducer.js'
 import { fetchProfileUpdate } from '../../fetchdata/fetchUpdateProfile';
 import MetaData from '../layouts/MetaData.js'
-import { userProfile } from '../../fetchdata/fetchProfile';
+import { userProfile } from '../../fetchdata/fetchProfile.js';
+import { updateProfileReset } from '../../reducers/profileUpdateUser.js'
 
 function ProfileUpdate() {
-    const { user } = useSelector((state) => state.users)
-    const { error, loading, isUpdated } = useSelector((state) => state.profileUpdate)
+    const { user, isAuthenticated } = useSelector((state) => state.users)
+    const { error, isUpdated } = useSelector((state) => state.profileUpdate)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const alert = useAlert()
@@ -61,7 +61,11 @@ function ProfileUpdate() {
                 name: user.name,
                 email: user.email
             })
-            setAvatarPreview(user.avatar.url);
+            setAvatarPreview(user.avatar?.url);
+        }
+        if (!isAuthenticated) {
+            navigate('/login')
+            alert.success('login first')
         }
         if (error) {
             alert.error(error);
@@ -70,11 +74,12 @@ function ProfileUpdate() {
         if (isUpdated) {
             alert.success("Profile Updated Successfully");
             dispatch(userProfile());
+            dispatch(updateProfileReset());
 
             navigate("/profile");
         }
 
-    }, [dispatch, error, alert, navigate, user, isUpdated]);
+    }, [dispatch, error, alert, navigate, user, isUpdated, isAuthenticated]);
     return (
         <Fragment>
             <MetaData title='update-profile' />

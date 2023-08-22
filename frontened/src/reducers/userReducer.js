@@ -69,8 +69,9 @@ const userLoginSlice = createSlice({
             .addCase(userProfile.fulfilled, (state, action) => {
                 state.loading = false;
                 state.user = action.payload;
-                state.error = null
-                state.isAuthenticated = true;
+                
+                    state.isAuthenticated = true;
+                
                 return state
             })
             .addCase(userProfile.pending, (state, action) => {
