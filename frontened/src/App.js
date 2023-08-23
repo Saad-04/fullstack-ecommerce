@@ -16,24 +16,27 @@ import NotFound from './components/layouts/NotFound.js'
 import Profile from './components/User/Profile.js'
 import Products from "./components/products/Products.js";
 import ProfileUpdate from "./components/User/ProfileUpdate.js";
-import { userProfile } from "./fetchdata/fetchProfile.js";
-import { useDispatch, useSelector } from "react-redux";
+// import { userProfile } from "./fetchdata/fetchProfile.js";
+// import { useDispatch, useSelector } from "react-redux";
+import UpdatePassword from "./components/User/UpdatePassword.js";
+// import ForgotPassword from "./components/User/ForgotPassword.js";
 
 function App() {
-  const { isAuthenticated, user } = useSelector(state => state.users)
-  const dispatch = useDispatch()
+  // const { isAuthenticated } = useSelector(state => state.users)
+  // const dispatch = useDispatch()
   useEffect(() => {
     webFont.load({
       google: {
         families: ["Roboto", "Droid Sans", "chilanka"],
       },
     });
-    if (isAuthenticated) {
-      dispatch(userProfile())
-    }
-  }, [dispatch]);
+    // if () {
+      //   dispatch(userProfile())
+      // }
+    }, []);
 
-  // {isAuthenticated && <UserOptions user={user} />}
+    // {isAuthenticated && <UserOptions user={user} />}
+    // <Route exact path="/password/forgot" element={<ForgotPassword />} />
   return (
     <Router>
       <Header />
@@ -44,6 +47,7 @@ function App() {
         <Route exact path="/Products/:keyword" element={<Products />} />
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/profile/update" element={<ProfileUpdate />} />
+        <Route exact path="/password/update" element={<UpdatePassword />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route path="/search" element={<Search />} />

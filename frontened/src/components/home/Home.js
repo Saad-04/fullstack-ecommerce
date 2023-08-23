@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "./home.css";
-import "./header.css";
 import ProductCard from "./ProductCard.js";
 import { MetaData } from "../layouts/MetaData.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,14 +49,14 @@ function Home() {
               })) : <Loader />
             }
           </div>
-          <Link to='/products' >
-            <h2 className="moreHeading">See more Products</h2>
-          </Link>
-
+          
         </>
-      )}
+        )}
     </>
   );
 }
 
+// <Link to='/products' >
+//   <h2 className="moreHeading">See more Products</h2>
+// </Link>
 export default Home;

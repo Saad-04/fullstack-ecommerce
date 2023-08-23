@@ -8,13 +8,13 @@ const sendEmailFunction = async (options) => {
     port: 465,
 
     auth: {
-      user: "asaad4674@gmail.com",
+      user: "asaad4674@gmail.com",//this is website owner email
       pass: "hkxykdsmbvtqvhnr",
     },
     secure: trusted,
   });
   const option = {
-    from: "<asaad4674@gmail.com>",
+    from: "<asaad4674@gmail.com>",//this is website owner email
     to: options.email,
     subject: options.subject,
     text: options.message,

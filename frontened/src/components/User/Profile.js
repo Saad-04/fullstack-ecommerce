@@ -135,6 +135,9 @@ const Profile = () => {
               <DescriptionItem title="Update-Profile" content={<Link to='/profile/update' >Click Here..</Link>} />
             </Col>
             <Col span={12}>
+              <DescriptionItem title="Update-password" content={<Link to='/password/update' >Click Here..</Link>} />
+            </Col>
+            <Col span={12}>
               <DescriptionItem title="Email" content={<a href="mailto:asaad4674@gmail.com">asaad4674@gmail.com</a>} />
             </Col>
             <Col span={12}>

@@ -4,7 +4,8 @@ const ErrorHandler = require("../utils/errorHandler.js");
 const sendEmailFunction = require("../utils/sendEmail.js");
 const crypto = require("crypto");
 const response = require("../utils/response.js");
-const cloudinary = require('cloudinary')
+const cloudinary = require('cloudinary');
+const { truncate } = require("fs");
 // , {
 //   folder: "avatars",
 //   width: 150,
@@ -37,7 +38,12 @@ exports.logoutUser = async (req, res, next) => {
       httpOnly: true,
       expires: new Date(Date.now()),
     });
-    response(res, 200, true, req.user.email, "successfully logged out ");
+    res.state(200).json({
+      success: true,
+      message: "successfully logged out ",
+      user: req.user.email
+    })
+
   } catch (error) {
     next(new ErrorHandler(error.message, 401));
   }
@@ -46,8 +52,7 @@ exports.logoutUser = async (req, res, next) => {
 exports.loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password)
-    // if email and password empty
+        // if email and password empty
     if ((!email && !password)) {
       return next(new ErrorHandler("enter email and password ", 400));
     }
@@ -96,12 +101,10 @@ exports.forgotPassword = async (req, res, next) => {
       subject: "ecommerce password recovery email",
       message,
     });
-
-    response(res, 200, true, null, `email send to ${user.email} successfully`);
-    // res.status(200).json({
-    //   success: true,
-    //   message: `email send to ${user.email} successfully`,
-    // });
+    res.status(200).json({
+      success: true,
+      message: `email send to ${user.email} successfully`
+    });
   } catch (error) {
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
@@ -188,8 +191,10 @@ exports.updatePassword = async (req, res, next) => {
     user.password = req.body.confirmPassword;
     await user.save();
     jsonTokenAndResponse(user, 201, res);
-
-    response(res, 200, true, null, "password update successfully 👍");
+    // res.state(200).json({
+    //   success: true,
+    //   message: "password update successfully 👍"
+    // })
   } catch (error) {
     next(new ErrorHandler(error.message, 401));
   }
@@ -207,14 +212,15 @@ exports.updateProfile = async (req, res, next) => {
         url: myCloud.secure_url,
       },
     };
-    // update avater later
-
-    if (req.body.name || req.body.email) {
+    if (req.body.name || req.body.email || req.body.avatar) {
       await User.findByIdAndUpdate(req.user.id, options);
       const newUser = await User.findById(req.user.id);
       jsonTokenAndResponse(newUser, 201, res);
     } else {
-      response(res, 401, false, null, "lease enter email or password !");
+      res.status(401).json({
+        success: false,
+        message: "lease enter email or password !"
+      });
     }
   } catch (error) {
     next(new ErrorHandler(error.message, 401));
