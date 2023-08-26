@@ -8,7 +8,7 @@
 //         const { data } = await axios.post(`/api/v1/password/forgot`, email, config);
 //         return await data.message
 //     } catch (error) {
-//         return error.response.data.message
+//         return error.response.data.message;
 //     }
 // }
 // )
