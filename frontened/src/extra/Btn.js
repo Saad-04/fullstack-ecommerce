@@ -16,6 +16,6 @@ const Btn = ({title}) => (
     <HappyProvider>
       <Button type="primary">{title}</Button>
     </HappyProvider>
-  </Space>
+  </Space>;
 );
 export default Btn;
