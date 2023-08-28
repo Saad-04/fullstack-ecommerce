@@ -6,7 +6,7 @@ const response = require("../utils/response.js");
 // create product api Admin
 exports.createProduct = async (req, res, next) => {
   try {
-    req.body.user = req.user.id; //here we save product create user id in body user property
+    req.body.user = req.user.id; //here we save product create user id in body user property;
 
     const product = await Product.create(req.body);
     response(res, 201, true, product, "product created successfully ");
