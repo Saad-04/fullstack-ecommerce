@@ -18,4 +18,4 @@ const Btn = ({title}) => (
     </HappyProvider>
   </Space>;
 );
-export default Btn;
+export default Btn
