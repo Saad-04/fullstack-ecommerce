@@ -8,7 +8,7 @@
 //         const { data } = await axios.put(`/api/v1/password/update`, password, config);
 //         return await data.success
 //     } catch (error) {
-//         return error.response.data.message
+//         return error.response.data.message;
 //     }
 // }
 // )
