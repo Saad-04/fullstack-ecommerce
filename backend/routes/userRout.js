@@ -3,7 +3,7 @@ const { registerUser, loginUser, logoutUser, forgotPassword, resetPassword, upda
 const { isAuthenticated, ownerRoles } = require('../middleware/auth.js');
 const router = express.Router();
 const multer = require('multer');
-const upload = multer()
+const upload = multer();
 
 router.route('/register').post(upload.single('file'), registerUser);
 router.route('/login').post(loginUser);
