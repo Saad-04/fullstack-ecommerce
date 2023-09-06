@@ -40,4 +40,4 @@ export const DELETE_REVIEW_SUCCESS = "DELETE_REVIEW_SUCCESS";
 export const DELETE_REVIEW_RESET = "DELETE_REVIEW_RESET";
 export const DELETE_REVIEW_FAIL = "DELETE_REVIEW_FAIL";
 
-export const clearError="clearErrors";
+export const clearError="clearErrors";;
