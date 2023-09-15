@@ -9,7 +9,7 @@ function ProductCard({ product }) {
     activeColor: "tomato",
     value: product.ratings,
     size: window.innerWidth < 600?10:16,
-    isHalf: true
+    isHalf: true,
   };
   //
   return (
