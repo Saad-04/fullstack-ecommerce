@@ -33,6 +33,6 @@ exports.ownerRoles = (...roles) => {
       }
     } catch (err) {
       next(new ErrorHandler(err.message, 401));
-    }
+    };
   };
 };
