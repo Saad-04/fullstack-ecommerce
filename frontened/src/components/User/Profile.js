@@ -41,7 +41,7 @@ const Profile = () => {
               id: 1,
               name: 'Lily',
             }
-          ]}
+          ]};
           bordered
           renderItem={(item) => (
             <List.Item
