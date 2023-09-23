@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from "react"
 import Header from "./components/layouts/header/SideHeader.js";
 import { BrowserRouter as Router } from "react-router-dom";
 import webFont from "webfontloader";
