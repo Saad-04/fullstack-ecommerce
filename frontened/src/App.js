@@ -56,6 +56,6 @@ function App() {
       <Footer />
     </Router>
   );
-}
+};
 //  <Route path="/products/:keyword" element={<Products/>} /> this is for search query method 
 export default App;
