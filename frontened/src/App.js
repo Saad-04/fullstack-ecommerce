@@ -13,7 +13,7 @@ import Register from "./components/User/Register.js";
 // import { useSelector } from "react-redux";
 // import UserOptions from './components/layouts/header/UserOptions.js'
 import NotFound from './components/layouts/NotFound.js'
-import Profile from './components/User/Profile.js'
+import Profile from './components/User/Profile.js';
 import Products from "./components/products/Products.js";
 import ProfileUpdate from "./components/User/ProfileUpdate.js";
 // import { userProfile } from "./fetchdata/fetchProfile.js";
