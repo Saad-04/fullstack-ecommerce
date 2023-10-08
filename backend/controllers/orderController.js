@@ -12,7 +12,7 @@ exports.newOrder = async (req, res, next) => {
       itemsPrice,
       taxPrice,
       shippingPrice,
-      totalPrice,
+      totalPrice
     } = req.body;
 
     const order = await Order.create({
