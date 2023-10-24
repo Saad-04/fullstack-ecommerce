@@ -5,7 +5,7 @@ import webFont from "webfontloader";
 import Footer from "./components/layouts/footer/Footer.js";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/home/Home.js";
-import './index.css'
+import './index.css'ss
 import ProductDetail from "./components/products/ProductDetail.js";
 import Search from './components/products/Search.js';
 import Login from "./components/User/Login.js";
